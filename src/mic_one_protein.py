@@ -3,7 +3,6 @@ from Bio import AlignIO
 from Bio import SeqIO
 from minepy import MINE
 from numpy import array, transpose, var
-from odo.convert import higher_precision_freqs
 from scipy.stats import mode
 from pandas import DataFrame
 import networkx as nx
@@ -99,23 +98,86 @@ def createDFFromDict(dictionary):
     df = DataFrame(dictionary)
     return DataFrame(dictionary)
 
-def centrality_sort(centrality_dict):
-    return sorted(centrality_dict.items(), key=operator.itemgetter(1), reverse=True)
+def get_central_node(G):
+    centrality_dict = nx.degree_centrality(G)
+    central_node    = sorted(centrality_dict.items(), key=operator.itemgetter(1), reverse=True)[0]
+    return central_node
 
-def createGraph(dataframe):
+def get_between_node(G):
+    between_dict = nx.betweenness_centrality(G)
+    between_node = sorted(between_dict.items(), key=operator.itemgetter(1), reverse=True)[0]
+    return between_node
+
+def get_eigen_node(G):
+    eigen_dict = nx.eigenvector_centrality(G)
+    eigen_node = sorted(eigen_dict.items(), key=operator.itemgetter(1), reverse=True)[0]
+    return eigen_node
+
+def createGraph(
+                dataframe,
+                labels=None, graph_layout='shell', node_size=1600, node_color='blue', node_alpha=0.3,
+                node_text_size=12,
+                edge_color='blue', edge_alpha=0.3, edge_tickness=1,
+                edge_text_pos=0.3,
+                text_font='sans-serif'):
     G = nx.from_pandas_dataframe(dataframe, 'x', 'y', 'mic')
     node_names={}
+
     #convert 1.0, 2.0.. to 1, 2 for node names
     for i, node in enumerate(G.nodes()):
         node_names[node]=str(int(node))
     G = nx.relabel_nodes(G, node_names)
+
     print("graph info")
     print(nx.info(G))
-    degree_sorted = centrality_sort(nx.degree_centrality(G))
-    highest_degree = [node[0] for node in degree_sorted[-20:]]
+
+    highest_degree = get_central_node(G)
     sub = G.subgraph(highest_degree)
-    print("sub-graph info")
+
+    print("centrality sub-graph info")
     print(nx.info(sub))
+
+    graph_pos=nx.shell_layout(G)
+
+    # draw graph
+    nx.draw_networkx_nodes(sub,graph_pos,node_size=node_size,alpha=node_alpha,node_color=node_color)
+    nx.draw_networkx_edges(sub,graph_pos,width=edge_tickness,alpha=edge_alpha,edge_color=edge_color)
+    nx.draw_networkx_labels(sub, graph_pos,font_size=node_text_size,font_family=text_font)
+
+    plt.show()
+    #----------------
+
+    between_node = get_between_node(G)
+    sub = G.subgraph(between_node)
+
+    print("betweenness sub-graph info")
+    print(nx.info(sub))
+
+    graph_pos=nx.shell_layout(G)
+
+    # draw graph
+    nx.draw_networkx_nodes(sub,graph_pos,node_size=node_size,alpha=node_alpha,node_color=node_color)
+    nx.draw_networkx_edges(sub,graph_pos,width=edge_tickness,alpha=edge_alpha,edge_color=edge_color)
+    nx.draw_networkx_labels(sub, graph_pos,font_size=node_text_size,font_family=text_font)
+
+    plt.show()
+    # ---------
+
+    eigen_node = get_eigen_node(G)
+    sub = G.subgraph(eigen_node)
+
+    print("eigen sub-graph info")
+    print(nx.info(sub))
+
+    graph_pos=nx.shell_layout(G)
+
+    # draw graph
+    nx.draw_networkx_nodes(sub,graph_pos,node_size=node_size,alpha=node_alpha,node_color=node_color)
+    nx.draw_networkx_edges(sub,graph_pos,width=edge_tickness,alpha=edge_alpha,edge_color=edge_color)
+    nx.draw_networkx_labels(sub, graph_pos,font_size=node_text_size,font_family=text_font)
+
+    plt.show()
+
     return sub
 
 index_map = {}
@@ -150,7 +212,6 @@ def run_mic_123():
     micDF=createDFFromDict(mic_scores)
     print(micDF.head(5))
     G=createGraph(micDF)
-    nx.draw_networkx(G)
     plt.axis('off')
     plt.show()
 
