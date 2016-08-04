@@ -10,20 +10,6 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import operator
 
-# do conversion for a single aa residue using Wang & Wang; 1999
-def convert_WW99(original):
-    types = {'X': ['R', 'K', 'D', 'E', 'P', 'N'],  ## surface
-             'Y': ['Q', 'H', 'S', 'T', 'G'],  ## neutral
-             'Z': ['A', 'I', 'L', 'F', 'V', 'Y', 'C', 'M', 'W']}  ## buried
-
-    result = ''
-    for t in types.keys():
-        if original in types[t]:
-            result = t
-    if (not result):
-        result = 'U'
-    return result
-
 def generate_binary_sequence(sequences):
     """ Generates a binary sequence out of a fasta MSA
     """
@@ -61,6 +47,9 @@ def change_to_123(residue, consensus_residue):
         if consensus_residue in types[t]:
             consensus_residueT = t
 
+    if (residueT == 'U'):
+        return 0
+
     if (residueT == consensus_residueT):
         return 1
     else:
@@ -68,11 +57,6 @@ def change_to_123(residue, consensus_residue):
             return 2
         else:
             return 3
-
-#reduce alphabet of sequence using Wang & Wang; 1999
-def reduce_alphabet_WW99(sequence):
-    new_sequence=[convert_WW99(x) for x in sequence]
-    return new_sequence
 
 def remove_zeros(data):
     dataT = transpose(data)
@@ -116,20 +100,22 @@ def createDFFromDict(dictionary):
     return DataFrame(dictionary)
 
 def centrality_sort(centrality_dict):
-    return sorted(centrality_dict.items(), key=operator.itemgetter, reverse=True)
+    return sorted(centrality_dict.items(), key=operator.itemgetter(1), reverse=True)
 
 def createGraph(dataframe):
     G = nx.from_pandas_dataframe(dataframe, 'x', 'y', 'mic')
-    print(len(G.nodes()))
     node_names={}
+    #convert 1.0, 2.0.. to 1, 2 for node names
     for i, node in enumerate(G.nodes()):
-        node_names[node]=str(i+1)
-    print(node_names)
+        node_names[node]=str(int(node))
     G = nx.relabel_nodes(G, node_names)
+    print("graph info")
     print(nx.info(G))
     degree_sorted = centrality_sort(nx.degree_centrality(G))
     highest_degree = [node[0] for node in degree_sorted[-20:]]
     sub = G.subgraph(highest_degree)
+    print("sub-graph info")
+    print(nx.info(sub))
     return sub
 
 index_map = {}
