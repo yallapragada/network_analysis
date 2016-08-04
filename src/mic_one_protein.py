@@ -95,23 +95,29 @@ def performMIC(transposed_list):
     return mic_scores
 
 def createDFFromDict(dictionary):
-    df = DataFrame(dictionary)
     return DataFrame(dictionary)
 
 def get_central_node(G):
     centrality_dict = nx.degree_centrality(G)
-    central_node    = sorted(centrality_dict.items(), key=operator.itemgetter(1), reverse=True)[0]
-    return central_node
+    central_nodes    = sorted(centrality_dict.items(), key=operator.itemgetter(1), reverse=True)[:20]
+    for node in central_nodes:
+        print(node[0])
+    return central_nodes
 
 def get_between_node(G):
     between_dict = nx.betweenness_centrality(G)
-    between_node = sorted(between_dict.items(), key=operator.itemgetter(1), reverse=True)[0]
-    return between_node
+    between_nodes = sorted(between_dict.items(), key=operator.itemgetter(1), reverse=True)[:20]
+    for node in between_nodes:
+        print(node[0])
+    return between_nodes
 
 def get_eigen_node(G):
     eigen_dict = nx.eigenvector_centrality(G)
-    eigen_node = sorted(eigen_dict.items(), key=operator.itemgetter(1), reverse=True)[0]
-    return eigen_node
+    eigen_nodes = sorted(eigen_dict.items(), key=operator.itemgetter(1), reverse=True)[:20]
+    for node in eigen_nodes:
+        print(node[0])
+        print(node)
+    return eigen_nodes
 
 def createGraph(
                 dataframe,
