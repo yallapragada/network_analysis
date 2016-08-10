@@ -99,25 +99,21 @@ def createDFFromDict(dictionary):
 
 def get_central_node(G):
     centrality_dict = nx.degree_centrality(G)
-    central_nodes    = sorted(centrality_dict.items(), key=operator.itemgetter(1), reverse=True)[:20]
-    for node in central_nodes:
-        print(node[0])
-    return central_nodes
+    central_nodes   = sorted(centrality_dict.items(), key=operator.itemgetter(1), reverse=True)[:20]
+    central_nodesX  = [node[0] for node in central_nodes]
+    return central_nodesX
 
 def get_between_node(G):
     between_dict = nx.betweenness_centrality(G)
     between_nodes = sorted(between_dict.items(), key=operator.itemgetter(1), reverse=True)[:20]
-    for node in between_nodes:
-        print(node[0])
-    return between_nodes
+    between_nodesX = [node[0] for node in between_nodes]
+    return between_nodesX
 
 def get_eigen_node(G):
     eigen_dict = nx.eigenvector_centrality(G)
     eigen_nodes = sorted(eigen_dict.items(), key=operator.itemgetter(1), reverse=True)[:20]
-    for node in eigen_nodes:
-        print(node[0])
-        print(node)
-    return eigen_nodes
+    eigen_nodesX = [node[0] for node in eigen_nodes]
+    return eigen_nodesX
 
 def createGraph(
                 dataframe,
@@ -180,7 +176,7 @@ def createGraph(
     # draw graph
     nx.draw_networkx_nodes(sub,graph_pos,node_size=node_size,alpha=node_alpha,node_color=node_color)
     nx.draw_networkx_edges(sub,graph_pos,width=edge_tickness,alpha=edge_alpha,edge_color=edge_color)
-    nx.draw_networkx_labels(sub, graph_pos,font_size=node_text_size,font_family=text_font)
+    nx.draw_networkx_labels(sub,graph_pos,font_size=node_text_size,font_family=text_font)
 
     plt.show()
 
