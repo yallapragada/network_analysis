@@ -1,0 +1,95 @@
+ha.afasta na.afasta
+566 59
+469 59
+graph info
+Name: 
+Type: Graph
+Number of nodes: 5
+Number of edges: 6
+Average degree:   2.4000
+centrality_dict  {'na263': 0.5, 'na116': 0.5, 'ha12': 0.75, 'na269': 0.5, 'ha100': 0.75}
+nodes with highest centrality
+('ha12', 0.75)
+('ha100', 0.75)
+('na263', 0.5)
+('na116', 0.5)
+('na269', 0.5)
+centrality sub-graph info
+Name: 
+Type: Graph
+Number of nodes: 5
+Number of edges: 6
+Average degree:   2.4000
+ha.afasta m1.afasta
+566 59
+252 59
+graph info
+Name: 
+Type: Graph
+Number of nodes: 3
+Number of edges: 2
+Average degree:   1.3333
+centrality_dict  {'ha12': 0.5, 'm1207': 1.0, 'ha100': 0.5}
+nodes with highest centrality
+('m1207', 1.0)
+('ha12', 0.5)
+('ha100', 0.5)
+centrality sub-graph info
+Name: 
+Type: Graph
+Number of nodes: 3
+Number of edges: 2
+Average degree:   1.3333
+ha.afasta m2.afasta
+566 59
+97 59
+ha.afasta np.afasta
+566 59
+498 59
+graph info
+Name: 
+Type: Graph
+Number of nodes: 8
+Number of edges: 9
+Average degree:   2.2500
+centrality_dict  {'ha326': 0.14285714285714285, 'ha12': 0.5714285714285714, 'np21': 0.2857142857142857, 'ha100': 0.5714285714285714, 'np104': 0.2857142857142857, 'np443': 0.2857142857142857, 'np424': 0.2857142857142857, 'np358': 0.14285714285714285}
+nodes with highest centrality
+('ha12', 0.5714285714285714)
+('ha100', 0.5714285714285714)
+('np21', 0.2857142857142857)
+('np104', 0.2857142857142857)
+('np443', 0.2857142857142857)
+('np424', 0.2857142857142857)
+('ha326', 0.14285714285714285)
+('np358', 0.14285714285714285)
+centrality sub-graph info
+Name: 
+Type: Graph
+Number of nodes: 8
+Number of edges: 9
+Average degree:   2.2500
+ha.afasta pb1.afasta
+566 59
+757 59
+ha.afasta pb2.afasta
+566 59
+759 59
+graph info
+Name: 
+Type: Graph
+Number of nodes: 5
+Number of edges: 6
+Average degree:   2.4000
+centrality_dict  {'pb2452': 0.5, 'ha12': 0.75, 'pb2183': 0.5, 'pb2298': 0.5, 'ha100': 0.75}
+nodes with highest centrality
+('ha12', 0.75)
+('ha100', 0.75)
+('pb2452', 0.5)
+('pb2183', 0.5)
+('pb2298', 0.5)
+centrality sub-graph info
+Name: 
+Type: Graph
+Number of nodes: 5
+Number of edges: 6
+Average degree:   2.4000

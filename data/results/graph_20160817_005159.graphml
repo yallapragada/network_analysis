@@ -1,0 +1,250 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key attr.name="weight" attr.type="double" for="edge" id="d1" />
+  <key attr.name="protein" attr.type="string" for="node" id="d0" />
+  <graph edgedefault="undirected">
+    <node id="ha_327">
+      <data key="d0">ha</data>
+    </node>
+    <node id="ha_13">
+      <data key="d0">ha</data>
+    </node>
+    <node id="pb2_299">
+      <data key="d0">pb2</data>
+    </node>
+    <node id="np_444">
+      <data key="d0">np</data>
+    </node>
+    <node id="np_359">
+      <data key="d0">np</data>
+    </node>
+    <node id="na_264">
+      <data key="d0">na</data>
+    </node>
+    <node id="na_270">
+      <data key="d0">na</data>
+    </node>
+    <node id="m1_208">
+      <data key="d0">m1</data>
+    </node>
+    <node id="na_117">
+      <data key="d0">na</data>
+    </node>
+    <node id="ha_101">
+      <data key="d0">ha</data>
+    </node>
+    <node id="np_105">
+      <data key="d0">np</data>
+    </node>
+    <node id="pb2_184">
+      <data key="d0">pb2</data>
+    </node>
+    <node id="np_22">
+      <data key="d0">np</data>
+    </node>
+    <node id="pb2_453">
+      <data key="d0">pb2</data>
+    </node>
+    <node id="np_425">
+      <data key="d0">np</data>
+    </node>
+    <edge source="ha_327" target="np_359">
+      <data key="d1">0.5725804656237689</data>
+    </edge>
+    <edge source="ha_13" target="np_105">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="ha_13" target="na_117">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="ha_13" target="np_425">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="ha_13" target="pb2_299">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="ha_13" target="np_444">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="ha_13" target="m1_208">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="ha_13" target="na_264">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="ha_13" target="pb2_184">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="ha_13" target="np_22">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="ha_13" target="na_270">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="ha_13" target="pb2_453">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="pb2_299" target="np_105">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="pb2_299" target="na_117">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="pb2_299" target="ha_101">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="pb2_299" target="np_444">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="pb2_299" target="m1_208">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="pb2_299" target="na_264">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="pb2_299" target="np_22">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="pb2_299" target="na_270">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="pb2_299" target="np_425">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="np_444" target="pb2_184">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="np_444" target="na_117">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="np_444" target="ha_101">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="np_444" target="m1_208">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="np_444" target="na_264">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="np_444" target="na_270">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="np_444" target="pb2_453">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="na_264" target="pb2_184">
+      <data key="d1">0.6161661934005355</data>
+    </edge>
+    <edge source="na_264" target="np_22">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_264" target="ha_101">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_264" target="m1_208">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_264" target="np_105">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_264" target="pb2_453">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_264" target="np_425">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_270" target="pb2_184">
+      <data key="d1">0.6161661934005355</data>
+    </edge>
+    <edge source="na_270" target="np_22">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_270" target="ha_101">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_270" target="m1_208">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_270" target="np_105">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_270" target="pb2_453">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_270" target="np_425">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="m1_208" target="pb2_184">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="m1_208" target="na_117">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="m1_208" target="ha_101">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="m1_208" target="np_105">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="m1_208" target="np_22">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="m1_208" target="pb2_453">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="m1_208" target="np_425">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="na_117" target="pb2_184">
+      <data key="d1">0.6161661934005355</data>
+    </edge>
+    <edge source="na_117" target="np_22">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_117" target="ha_101">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_117" target="np_105">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_117" target="pb2_453">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="na_117" target="np_425">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="ha_101" target="np_105">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="ha_101" target="np_425">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="ha_101" target="pb2_184">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="ha_101" target="np_22">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="ha_101" target="pb2_453">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="np_105" target="pb2_184">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="np_105" target="pb2_453">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="pb2_184" target="np_22">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="pb2_184" target="np_425">
+      <data key="d1">0.536675414826081</data>
+    </edge>
+    <edge source="np_22" target="pb2_453">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+    <edge source="pb2_453" target="np_425">
+      <data key="d1">0.656540281386946</data>
+    </edge>
+  </graph>
+</graphml>

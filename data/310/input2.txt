@@ -1,0 +1,2 @@
+m1.afasta,m2.afasta
+m1.afasta,np.afasta
