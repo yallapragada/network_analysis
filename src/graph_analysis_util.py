@@ -1,17 +1,38 @@
 from Bio import SeqIO, AlignIO
 import sys
 from numpy import transpose, array
-from pandas import DataFrame
+from pandas import DataFrame, unique, concat
 from minepy import MINE
 from scipy.stats import mode
 import networkx as nx
 import csv
 import datetime
 import matplotlib.pyplot as plt
+import random
 
 import operator
 from bokeh.plotting import figure, show, output_file
 import math
+
+# this function is partitioning the input list into n smaller chunks
+def partition(list, n):
+    q, r = divmod(len(list), n)
+    indices = [q*i + min(i, r) for i in range(n+1)]
+    return [list[indices[i]:indices[i + 1]] for i in range(n)]
+
+
+# this function is performing a simple split of the complete file
+# does not split by protein
+def split_fasta_file_to_smaller(fasta_file, num_chunks):
+    records = []
+    for record in SeqIO.parse(fasta_file, "fasta"):
+        records.append(record)
+    random.shuffle(records)
+    chunks = partition(records, num_chunks)
+    for i in range(len(chunks)):
+        output_handle = open("chunk"+str(i)+".fasta", "w")
+        SeqIO.write(chunks[i], output_handle, "fasta")
+        output_handle.close()
 
 
 # split a fasta file that contains several different proteins into multiple fasta files
@@ -24,13 +45,16 @@ def split_fasta(fasta_file):
     m2_sequences = []
     pb1_sequences = []
     pb2_sequences = []
+    ns1_sequences = []
+    ns2_sequences = []
+    pa_sequences = []
 
     for record in SeqIO.parse(fasta_file, "fasta"):
 
         description_list = record.description.split('|')
 
         if (len(description_list)<4):
-            print(record.description)
+            print("protein description too short ", record.description)
             continue
 
         if 'HA' in description_list[5]:
@@ -48,38 +72,69 @@ def split_fasta(fasta_file):
         if 'M2' in description_list[5]:
             m2_sequences.append(record)
 
-        if 'PB1 Polymerase (basic) protein 1' in description_list[5]:
+        if 'PB1 Polymerase (basic) protein 1' in description_list[5] or 'PB1 Polymerase (basic) protein 1' in description_list[4]:
             pb1_sequences.append(record)
 
         if 'PB2' in description_list[5]:
             pb2_sequences.append(record)
 
+        if 'NS1 Non-structural protein 1' in description_list[5]:
+            ns1_sequences.append(record)
+
+        if 'NS2 Non-structural protein 2' in description_list[5]:
+            ns2_sequences.append(record)
+
+        if 'PA Polymerase (acidic) protein' in description_list[5]:
+            pa_sequences.append(record)
+
     output_handle = open("ha.fasta", "w")
+    print("length of ha sequences ", len(ha_sequences))
     SeqIO.write(ha_sequences, output_handle, "fasta")
     output_handle.close()
 
     output_handle = open("na.fasta", "w")
+    print("length of na sequences ", len(na_sequences))
     SeqIO.write(na_sequences, output_handle, "fasta")
     output_handle.close()
 
     output_handle = open("m1.fasta", "w")
+    print("length of m1 sequences ", len(m1_sequences))
     SeqIO.write(m1_sequences, output_handle, "fasta")
     output_handle.close()
 
     output_handle = open("m2.fasta", "w")
+    print("length of m2 sequences ", len(m2_sequences))
     SeqIO.write(m2_sequences, output_handle, "fasta")
     output_handle.close()
 
     output_handle = open("np.fasta", "w")
+    print("length of np sequences ", len(np_sequences))
     SeqIO.write(np_sequences, output_handle, "fasta")
     output_handle.close()
 
     output_handle = open("pb1.fasta", "w")
+    print("length of pb1 sequences ", len(pb1_sequences))
     SeqIO.write(pb1_sequences, output_handle, "fasta")
     output_handle.close()
 
     output_handle = open("pb2.fasta", "w")
+    print("length of pb2 sequences ", len(pb2_sequences))
     SeqIO.write(pb2_sequences, output_handle, "fasta")
+    output_handle.close()
+
+    output_handle = open("ns1.fasta", "w")
+    print("length of ns1 sequences ", len(ns1_sequences))
+    SeqIO.write(ns1_sequences, output_handle, "fasta")
+    output_handle.close()
+
+    output_handle = open("ns2.fasta", "w")
+    print("length of ns2 sequences ", len(ns2_sequences))
+    SeqIO.write(ns2_sequences, output_handle, "fasta")
+    output_handle.close()
+
+    output_handle = open("pa.fasta", "w")
+    print("length of pa sequences ", len(pa_sequences))
+    SeqIO.write(pa_sequences, output_handle, "fasta")
     output_handle.close()
 
 
@@ -173,10 +228,12 @@ def add_attribute(graph):
         protein_name_dict[node] = node.split('_')[0]
     nx.set_node_attributes(graph, 'protein', protein_name_dict)
 
+
 def create_graph(dataframe, filename):
     graph = nx.from_pandas_dataframe(dataframe, 'x', 'y', 'weight')
     add_attribute(graph)
     nx.write_graphml(graph, filename+'.graphml')
+
 
 def get_sequences_from_alignment(alignment):
     sequences = [x.seq for x in alignment]
@@ -199,6 +256,25 @@ def find(list_of_tuples, value):
         print("***")
         return None
 
+def write_strains_to_csv(list_of_strains, title):
+
+    csv.register_dialect(
+        'mydialect',
+        delimiter=',',
+        quotechar='"',
+        doublequote=True,
+        skipinitialspace=True,
+        lineterminator='\n',
+        quoting=csv.QUOTE_MINIMAL)
+
+    f = open(title + ".csv", 'wt')
+
+    try:
+        writer = csv.writer(f, dialect='mydialect')
+        writer.writerow(list_of_strains)
+    finally:
+        f.close()
+
 
 # Given a SeqRecord, return strain_name
 def get_strain_name(record):
@@ -210,15 +286,14 @@ def get_strain_name(record):
     return strain
 
 
-def get_matching_sequence(sequences, strain_name):
-    for sequence in sequences:
-        if (get_strain_name(sequence) == strain_name):
-            return sequence
+def get_matching_sequence(records, strain_name):
+    for record in records:
+        if (get_strain_name(record) == strain_name):
+            return record
     return None
 
 
 def create_01_sequences(file1, file2):
-    print(file1, file2)
     sequences1 = AlignIO.read(file1, 'fasta')
     sequences2 = AlignIO.read(file2, 'fasta')
 
@@ -263,6 +338,15 @@ def create_0123_sequences(file1, file2):
 def create_df_from_dict(dictionary):
     return DataFrame(dictionary)
 
+#how many nodes per protein
+#how many edges between proteins
+def create_report(df):
+    proteins = ['ha', 'na', 'np', 'm1', 'm2', 'pb1', 'pb2', 'ns1', 'ns2', 'pa']
+    for protein in proteins:
+        df1 = list(df['x'][(df['p1'] == protein)].values.ravel())
+        df2 = list(df['y'][(df['p2'] == protein)].values.ravel())
+        df3=list(set(df1+df2))
+        print('# unique residues of ', protein, ' = ', len(df3))
 
 def perform_mic_2p(p1_sequences, p2_sequences, p1, p2, cutoff=0.5):
     mic_scores = []
@@ -277,17 +361,21 @@ def perform_mic_2p(p1_sequences, p2_sequences, p1, p2, cutoff=0.5):
                 mic_score = {}
                 mic_score['x'] = p1+'_'+str(idx1+1)
                 mic_score['y'] = p2+'_'+str(idx2+1)
+                mic_score['p1'] = p1
+                mic_score['p2'] = p2
                 mic_score['weight'] = mine.mic()
                 mic_scores.append(mic_score)
 
-    print('done computing mics for ', p1, p2)
+    #print('computed ', len(mic_scores), ' mics for ', p1, p2, 'for cutoff ', cutoff)
     return mic_scores
+
 
 def generate_output_filename(output_dir, basename):
     suffix = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = "_".join([basename, suffix])
     output_filename=output_dir+"\\"+filename+".txt"
     return output_filename
+
 
 def entropy(text):
     frequencies={}
@@ -359,3 +447,43 @@ def run_entropies():
 #split_fasta('strains_865_2013.fasta')
 #split_fasta('strains_310_90_to_04.fasta')
 #split_fasta('strains_432_05_to_07.fasta')
+#split_fasta_file_to_smaller('strains_800_name_A.fasta', 2)
+#split_fasta('strains_random_400.fasta')
+#split_fasta('strains_800_name_A_subset.fasta')
+#split_fasta('strains_800_random.fasta')
+#split_fasta('all_strains_comp_gen.fasta')
+
+def test_dict():
+    dict1 = {'x':'ha_10', 'y':'na_11', 'p1':'ha', 'p2':'na', 'weight':'0.8'}
+    dict2 = {'x':'ha_11', 'y':'na_11', 'p1':'ha', 'p2':'na', 'weight':'0.8'}
+    dict3 = {'x': 'ha_10', 'y': 'na_13', 'p1': 'ha', 'p2': 'na', 'weight': '0.8'}
+    dict4 = {'x': 'ha_14', 'y': 'na_1', 'p1': 'ha', 'p2': 'na', 'weight': '0.8'}
+    dict5 = {'x': 'ha_15', 'y': 'na_2', 'p1': 'ha', 'p2': 'na', 'weight': '0.8'}
+    dict6 = {'x': 'ha_21', 'y': 'na_13', 'p1': 'ha', 'p2': 'na', 'weight': '0.8'}
+    dict7 = {'x': 'ha_21', 'y': 'na_2', 'p1': 'ha', 'p2': 'na', 'weight': '0.8'}
+    dict8 = {'x': 'np_3', 'y': 'na_2', 'p1': 'np', 'p2': 'na', 'weight': '0.8'}
+    dict9 = {'x': 'np_4', 'y': 'na_2', 'p1': 'np', 'p2': 'na', 'weight': '0.8'}
+    dict10 = {'x': 'np_5', 'y': 'ha_11', 'p1': 'np', 'p2': 'ha', 'weight': '0.8'}
+
+    dictionaries = []
+    dictionaries.append(dict1)
+    dictionaries.append(dict2)
+    dictionaries.append(dict3)
+    dictionaries.append(dict4)
+    dictionaries.append(dict5)
+    dictionaries.append(dict6)
+    dictionaries.append(dict7)
+    dictionaries.append(dict8)
+    dictionaries.append(dict9)
+    dictionaries.append(dict10)
+
+    df=create_df_from_dict(dictionaries)
+    create_report(df)
+
+def read_csv_strains(file):
+    strains = list(read_file(file))[0]
+
+
+#read_csv('unique_strains_100.csv')
+
+#test_dict()
