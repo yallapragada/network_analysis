@@ -7,12 +7,43 @@ from scipy.stats import mode
 import networkx as nx
 import csv
 import datetime
-import matplotlib.pyplot as plt
-import random
-
 import operator
 from bokeh.plotting import figure, show, output_file
 import math
+
+def load_blosum_matrix(matrix_filename):
+
+    with open(matrix_filename) as matrix_file:
+        matrix_content = matrix_file.read()
+    lines = matrix_content.strip().split('\n')
+
+    header = lines.pop(0)
+    columns = header.split()
+    blosum_matrix = {}
+
+    for row in lines:
+        entries = row.split()
+        row_name = entries.pop(0)
+        blosum_matrix[row_name] = {}
+
+        if len(entries) != len(columns):
+            print('Improper entry number in row')
+
+        for column_name in columns:
+            blosum_matrix[row_name][column_name] = entries.pop(0)
+
+    return blosum_matrix
+
+
+def lookup_score(blosum_matrix, a, b):
+    a = a.upper()
+    b = b.upper()
+
+    if a not in blosum_matrix or b not in blosum_matrix[a]:
+        print(a, ' or ', b, ' not in matrix ')
+
+    x = blosum_matrix[a][b]
+    return x
 
 # this function is partitioning the input list into n smaller chunks
 def partition(list, n):
@@ -153,6 +184,33 @@ def get_consensus_sequence(sequences):
 def convert_01(sequence, consensus_sequence):
     return [1 if x==consensus_sequence[i] else 0 for i,x in enumerate(sequence)]
 
+
+# blosum62 based encoding >=0 implies 0; else 1
+def convert_01_B62b(sequence, consensus_sequence, b62_matrix):
+    new_sequence = [change_to_01_B62b(sequence[i], consensus_sequence[i], b62_matrix) for i in range(len(sequence))]
+    return new_sequence
+
+
+def change_to_01_B62b(residue, consensus_residue, b62_matrix):
+    b62_value = lookup_score(b62_matrix, residue, consensus_residue)
+    if int(b62_value) > 0:
+        return 0
+    else:
+        return 1
+
+
+# blosum62 based encoding >=0 implies 0; else 1
+def convert_01_B62a(sequence, consensus_sequence, b62_matrix):
+    new_sequence = [change_to_01_B62a(sequence[i], consensus_sequence[i], b62_matrix) for i in range(len(sequence))]
+    return new_sequence
+
+
+def change_to_01_B62a(residue, consensus_residue, b62_matrix):
+    b62_value = lookup_score(b62_matrix, residue, consensus_residue)
+    if int(b62_value) >= 0:
+        return 0
+    else:
+        return 1
 
 def convert_all_to_123(sequences):
     mod = [mode(x)[0][0] for x in transpose(array([list(z) for z in sequences]))]
@@ -335,6 +393,50 @@ def create_0123_sequences(file1, file2):
     return p1_sequences_0123, p2_sequences_0123
 
 
+# create 0,1 sequences based on blosum 62
+def create_B01a_sequences(file1, file2):
+    blosum_matrix = load_blosum_matrix('blosum62.txt')
+    sequences1 = AlignIO.read(file1, 'fasta')
+    sequences2 = AlignIO.read(file2, 'fasta')
+
+    p1_sequences_B01a = []  # list of p1 sequences
+    p2_sequences_B01a = []  # list of p2 sequences
+
+    consensus_sequence1 = get_consensus_sequence(sequences1)
+    consensus_sequence2 = get_consensus_sequence(sequences2)
+
+    for sequence1 in sequences1:
+        strain_name = get_strain_name(sequence1)
+        sequence2 = get_matching_sequence(sequences2, strain_name=strain_name)
+        if (sequence2):
+            p1_sequences_B01a.append(convert_01_B62a(sequence1.seq, consensus_sequence1, blosum_matrix))
+            p2_sequences_B01a.append(convert_01_B62a(sequence2.seq, consensus_sequence2, blosum_matrix))
+
+    return p1_sequences_B01a, p2_sequences_B01a
+
+
+# create 0,1 sequences based on blosum 62
+def create_B01b_sequences(file1, file2):
+    blosum_matrix = load_blosum_matrix('blosum62.txt')
+    sequences1 = AlignIO.read(file1, 'fasta')
+    sequences2 = AlignIO.read(file2, 'fasta')
+
+    p1_sequences_B01b = []  # list of p1 sequences
+    p2_sequences_B01b = []  # list of p2 sequences
+
+    consensus_sequence1 = get_consensus_sequence(sequences1)
+    consensus_sequence2 = get_consensus_sequence(sequences2)
+
+    for sequence1 in sequences1:
+        strain_name = get_strain_name(sequence1)
+        sequence2 = get_matching_sequence(sequences2, strain_name=strain_name)
+        if (sequence2):
+            p1_sequences_B01b.append(convert_01_B62b(sequence1.seq, consensus_sequence1, blosum_matrix))
+            p2_sequences_B01b.append(convert_01_B62b(sequence2.seq, consensus_sequence2, blosum_matrix))
+
+    return p1_sequences_B01b, p2_sequences_B01b
+
+
 def create_df_from_dict(dictionary):
     return DataFrame(dictionary)
 
@@ -397,9 +499,6 @@ def entropy(text):
 def entropy_all_positions(sequences):
     sequencesT = transpose(sequences)
     scores = [entropy(x) for x in sequencesT]
-    for score in scores:
-        if (score>1):
-            print("SCORE ", score)
     return scores
 
 
@@ -487,3 +586,21 @@ def read_csv_strains(file):
 #read_csv('unique_strains_100.csv')
 
 #test_dict()
+
+#def test_convert_B62a():
+    sequence = 'EGRMNYYWTLVEPGDKITFEA'
+    consensus_sequence = 'EGRMNYYWTGGGPGDKITFEA'
+    blosum_matrix = load_blosum_matrix('blosum62.txt')
+    print(blosum_matrix)
+    print(convert_01_B62a(sequence, consensus_sequence, blosum_matrix))
+
+#test_convert_B62a()
+
+
+def read_graphml(infilename):
+    graph = nx.read_graphml(infilename)
+    return graph
+
+
+def write_graphml(outgraph, infilename):
+    nx.write_graphml(outgraph, 'p_'+infilename)

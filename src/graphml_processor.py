@@ -1,16 +1,10 @@
-import networkx as nx
-from itertools import combinations
 from collections import defaultdict
+from itertools import combinations
+
 import matplotlib.pyplot as plt
+import networkx as nx
 
-def read_graphml(infilename):
-    graph = nx.read_graphml(infilename)
-    return graph
-
-
-def write_graphml(outgraph, infilename):
-    nx.write_graphml(outgraph, 'p_'+infilename)
-
+from graph_analysis_util import read_graphml, write_graphml
 
 def create_plot(g, plot_file):
     graph_pos=nx.shell_layout(g)

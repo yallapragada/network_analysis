@@ -2,6 +2,7 @@ from Bio import AlignIO
 import graph_analysis_util as util
 import sys, os
 import operator
+import multiprocessing as mp
 
 
 def compare_string(string1, string2):
@@ -11,7 +12,7 @@ def compare_string(string1, string2):
 
 
 # remove >(ratio)% identical sequences
-def remove_similar_sequences(sequences, ratio):
+def remove_similar_sequences(sequences, ratio, folder):
     unique_sequences = []
     unique_sequences.append(sequences[0])
 
@@ -19,12 +20,17 @@ def remove_similar_sequences(sequences, ratio):
         similar = False
         for unique_sequence in unique_sequences:
             similarity = compare_string(sequence[1], unique_sequence[1])
-            if similarity>=ratio:
+            if similarity>=float(ratio):
                 similar = True
                 break
         if similar is False:
             unique_sequences.append(sequence)
-    return unique_sequences
+
+    #convert 0.999 to 999 for appending to filename
+    file_append_ratio = ratio.split('.')[1]
+    strains_ratio = [unique_sequence[0] for unique_sequence in unique_sequences]
+    util.write_strains_to_csv(strains_ratio, folder + os.sep + 'unique_strains_' + file_append_ratio)
+    print('done with remove_similar_sequences for ', ratio)
 
 
 def concat_sequences(file1, file2, file3, file4, file5, file6, file7, file8, file9, file10):
@@ -62,9 +68,12 @@ def concat_sequences(file1, file2, file3, file4, file5, file6, file7, file8, fil
 
     return complete_sequences
 
-def run():
 
-    folder = sys.argv[1]
+def run(folder, ratios_list):
+
+    manager = mp.Manager()
+    output = manager.Queue()
+
     file1 = folder + os.sep + 'ha.afasta'
     file2 = folder + os.sep + 'na.afasta'
     file3 = folder + os.sep + 'm1.afasta'
@@ -78,23 +87,22 @@ def run():
     complete_sequences = concat_sequences(file1, file2, file3, file4, file5, file6, file7, file8, file9, file10)
     print('number of complete sequences ', len(complete_sequences))
 
-    '''
-    sequences_100 = remove_similar_sequences(complete_sequences, 1.0)
-    strains_100 = [unique_sequence[0] for unique_sequence in sequences_100]
-    util.write_strains_to_csv(strains_100, folder + os.sep + 'unique_strains_100')
-    print('number of sequences_100 ', len(sequences_100))
-    '''
+    processes = []
+    for ratio in ratios_list:
+        p = mp.Process(target=remove_similar_sequences, args=(complete_sequences, ratio, folder))
+        processes.append(p)
 
-    sequences_999 = remove_similar_sequences(complete_sequences, 0.999)
-    strains_999 = [unique_sequence[0] for unique_sequence in sequences_999]
-    util.write_strains_to_csv(strains_999, folder + os.sep + 'unique_strains_999')
-    print('number of sequences_999 ', len(sequences_999))
+    for p in processes:
+        p.start()
 
-    sequences_998 = remove_similar_sequences(complete_sequences, 0.998)
-    strains_998 = [unique_sequence[0] for unique_sequence in sequences_998]
-    util.write_strains_to_csv(strains_998, folder + os.sep + 'unique_strains_998')
-    print('number of sequences_998 ', len(sequences_998))
+    for p in processes:
+        p.join()
+
+    print('after join')
 
 
-run()
-#print(compare_string('VCAGREF', 'VC-GREF'))
+if __name__ == '__main__':
+    folder = sys.argv[1]
+    ratios = sys.argv[2]
+    ratios_list= ratios.split(',')
+    run(folder, ratios_list)

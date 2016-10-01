@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-# Usage: python blosum.py blosum62.txt
-#        Then, enter input in "row col" format -- e..g, "s f".
-import sys
 
 class InvalidPairException(Exception):
     pass
@@ -36,11 +32,9 @@ class Matrix:
     def lookup_score(self, a, b):
         a = a.upper()
         b = b.upper()
-        print(a,b)
 
         if a not in self._matrix or b not in self._matrix[a]:
             print("a or b not in matrix")
             raise InvalidPairException('[%s, %s]' % (a, b))
         x=self._matrix[a][b]
-        print(x)
         return x
