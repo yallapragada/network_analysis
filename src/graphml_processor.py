@@ -6,6 +6,7 @@ import networkx as nx
 
 from graph_analysis_util import read_graphml, write_graphml
 
+
 def create_plot(g, plot_file):
     graph_pos=nx.shell_layout(g)
 
@@ -57,6 +58,7 @@ def create_protein_graph(ingraph):
 
     return outgraph
 
+
 #compare nodes in two graphs
 def compare_two_graphs(file1, file2):
     g1 = read_graphml(file1)
@@ -87,5 +89,5 @@ def run(infilename):
     plot_file = infilename.split('.')[0] + '.png'
     create_plot(outgraph, plot_file)
 
-run('all_05_01.graphml')
+#run('u800d_05_B01b.graphml')
 #compare_two_graphs('all_05_01.graphml', '800d_05_01.graphml')
