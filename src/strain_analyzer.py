@@ -29,8 +29,8 @@ def remove_similar_sequences(sequences, ratio, folder):
     #convert 0.999 to 999 for appending to filename
     file_append_ratio = ratio.split('.')[1]
     strains_ratio = [unique_sequence[0] for unique_sequence in unique_sequences]
+    print('number of ', ratio, ' strains ', len(strains_ratio))
     util.write_strains_to_csv(strains_ratio, folder + os.sep + 'unique_strains_' + file_append_ratio)
-    print('done with remove_similar_sequences for ', ratio)
 
 
 def concat_sequences(file1, file2, file3, file4, file5, file6, file7, file8, file9, file10):
@@ -71,9 +71,6 @@ def concat_sequences(file1, file2, file3, file4, file5, file6, file7, file8, fil
 
 def run(folder, ratios_list):
 
-    manager = mp.Manager()
-    output = manager.Queue()
-
     file1 = folder + os.sep + 'ha.afasta'
     file2 = folder + os.sep + 'na.afasta'
     file3 = folder + os.sep + 'm1.afasta'
@@ -85,7 +82,7 @@ def run(folder, ratios_list):
     file9 = folder + os.sep + 'ns1.afasta'
     file10 = folder + os.sep + 'ns2.afasta'
     complete_sequences = concat_sequences(file1, file2, file3, file4, file5, file6, file7, file8, file9, file10)
-    print('number of complete sequences ', len(complete_sequences))
+    print('number of complete strains ', len(complete_sequences))
 
     processes = []
     for ratio in ratios_list:
