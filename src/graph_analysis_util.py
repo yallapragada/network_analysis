@@ -1,15 +1,18 @@
-from Bio import SeqIO, AlignIO
-import sys
-from numpy import transpose, array
-from pandas import DataFrame, unique, concat
-from minepy import MINE
-from scipy.stats import mode
-import networkx as nx
 import csv
 import datetime
-import operator
-from bokeh.plotting import figure, show, output_file
 import math
+import operator
+import sys
+
+import networkx as nx
+from Bio import SeqIO, AlignIO
+from minepy import MINE
+from numpy import transpose, array
+from pandas import DataFrame
+from scipy.stats import mode
+
+from plot_util import plotEntropies
+
 
 def load_blosum_matrix(matrix_filename):
 
@@ -255,16 +258,14 @@ def change_to_123(residue, consensus_residue):
             return 3
 
 
-def get_central_node(G):
+# get top n nodes with highest degree
+def get_highest_degree(G, n):
     centrality_dict = nx.degree_centrality(G)
     degree_centrality_nodes   = sorted(centrality_dict.items(), key=operator.itemgetter(1), reverse=True)
-    print('nodes with highest degree centrality')
-    if (len(degree_centrality_nodes)>200):
-        central_nodesX = [node[0] for node in degree_centrality_nodes[:200]]
+    if (len(degree_centrality_nodes)> int(n)):
+        central_nodesX = [node[0] for node in degree_centrality_nodes[:int(n)]]
     else:
         central_nodesX = [node[0] for node in degree_centrality_nodes]
-    for node in central_nodesX:
-        print(node)
     return central_nodesX
 
 def get_eigen_node(G):
@@ -501,18 +502,6 @@ def entropy_all_positions(sequences):
     scores = [entropy(x) for x in sequencesT]
     return scores
 
-
-def plotEntropies(entropies, residues, title):
-    plot_simple_bokeh_line(y=entropies, x=list(residues), filename=title+".html", width=400, height=300, xaxis="residues", yaxis="entropies", title=title)
-
-
-def plot_simple_bokeh_line(x,y, filename, height, width, xaxis, yaxis, title):
-    output_file(filename)
-    p=figure(plot_width=width, plot_height=height,title=title)
-    p.line(x,y, color="green")
-    p.xaxis.axis_label=xaxis
-    p.yaxis.axis_label=yaxis
-    show(p)
 
 def read_file(filename):
     f = open(filename)
