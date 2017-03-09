@@ -45,11 +45,7 @@ def sequence_cleaner(complete_sequences):
     # Create our hash table to add the sequences
     unique_sequences={}
 
-    i=0
-    # Using the Biopython fasta parse we can read our fasta input
     for complete_sequence in complete_sequences:
-        i=i+1
-        print(i)
         # Take the current sequence
         sequence = complete_sequence[1].upper()
         strain = complete_sequence[0]
@@ -58,6 +54,7 @@ def sequence_cleaner(complete_sequences):
             unique_sequences[sequence] = strain
 
     return unique_sequences
+
 
 def create_unique_sequences(fasta_file, unique_strains_file):
     sequences = AlignIO.read(fasta_file, 'fasta')
@@ -71,6 +68,7 @@ def create_unique_sequences(fasta_file, unique_strains_file):
             strains.remove(strain_name)
 
     return new_fasta_sequences
+
 
 def run_dup_remover():
 
@@ -87,12 +85,13 @@ def run_dup_remover():
     file10 = folder + os.sep + 'ns2.afasta'
     complete_sequences = concat_sequences(file1, file2, file3, file4, file5, file6, file7, file8, file9, file10)
     print('number of complete sequences ', len(complete_sequences))
+    print('length of complete sequence', len(complete_sequences[0][1]))
 
     unique_sequences_dict = sequence_cleaner(complete_sequences)
-    print(unique_sequences_dict.values())
     strains_100 = [strain for strain in unique_sequences_dict.values()]
     util.write_strains_to_csv(strains_100, folder + os.sep + 'unique_strains_100')
     print('number of sequences_100 ', len(strains_100))
+
 
 def run_unique_fasta_creator():
 
@@ -108,5 +107,6 @@ def run_unique_fasta_creator():
         msa = MultipleSeqAlignment(unique_sequences)
         AlignIO.write(msa, handle=unique_file, format='fasta')
 
+
+run_dup_remover()
 run_unique_fasta_creator()
-#run_dup_remover()

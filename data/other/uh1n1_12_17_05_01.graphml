@@ -1,0 +1,427 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key attr.name="weight" attr.type="string" for="edge" id="d1" />
+  <key attr.name="protein" attr.type="string" for="node" id="d0" />
+  <graph edgedefault="undirected">
+    <node id="ns2_83">
+      <data key="d0">ns2</data>
+    </node>
+    <node id="na_386">
+      <data key="d0">na</data>
+    </node>
+    <node id="na_270">
+      <data key="d0">na</data>
+    </node>
+    <node id="na_264">
+      <data key="d0">na</data>
+    </node>
+    <node id="ha_233">
+      <data key="d0">ha</data>
+    </node>
+    <node id="ns1_131">
+      <data key="d0">ns1</data>
+    </node>
+    <node id="m1_208">
+      <data key="d0">m1</data>
+    </node>
+    <node id="ha_180">
+      <data key="d0">ha</data>
+    </node>
+    <node id="ha_13">
+      <data key="d0">ha</data>
+    </node>
+    <node id="ns2_29">
+      <data key="d0">ns2</data>
+    </node>
+    <node id="na_13">
+      <data key="d0">na</data>
+    </node>
+    <node id="na_314">
+      <data key="d0">na</data>
+    </node>
+    <node id="ns1_55">
+      <data key="d0">ns1</data>
+    </node>
+    <node id="ha_179">
+      <data key="d0">ha</data>
+    </node>
+    <node id="ns2_2">
+      <data key="d0">ns2</data>
+    </node>
+    <node id="np_105">
+      <data key="d0">np</data>
+    </node>
+    <node id="pa_362">
+      <data key="d0">pa</data>
+    </node>
+    <node id="ns1_125">
+      <data key="d0">ns1</data>
+    </node>
+    <node id="na_40">
+      <data key="d0">na</data>
+    </node>
+    <node id="ha_273">
+      <data key="d0">ha</data>
+    </node>
+    <node id="ns1_2">
+      <data key="d0">ns1</data>
+    </node>
+    <node id="pb2_299">
+      <data key="d0">pb2</data>
+    </node>
+    <node id="pb2_453">
+      <data key="d0">pb2</data>
+    </node>
+    <node id="ha_101">
+      <data key="d0">ha</data>
+    </node>
+    <node id="na_432">
+      <data key="d0">na</data>
+    </node>
+    <edge source="ns2_83" target="ha_233">
+      <data key="d1">0.809</data>
+    </edge>
+    <edge source="ns2_83" target="na_270">
+      <data key="d1">0.807</data>
+    </edge>
+    <edge source="ns2_83" target="na_264">
+      <data key="d1">0.800</data>
+    </edge>
+    <edge source="ns2_83" target="ns1_125">
+      <data key="d1">0.840</data>
+    </edge>
+    <edge source="ns2_83" target="np_105">
+      <data key="d1">0.618</data>
+    </edge>
+    <edge source="ns2_83" target="m1_208">
+      <data key="d1">0.914</data>
+    </edge>
+    <edge source="ns2_83" target="pb2_299">
+      <data key="d1">0.896</data>
+    </edge>
+    <edge source="ns2_83" target="ha_13">
+      <data key="d1">0.856</data>
+    </edge>
+    <edge source="ns2_83" target="ns1_2">
+      <data key="d1">0.852</data>
+    </edge>
+    <edge source="ns2_83" target="na_13">
+      <data key="d1">0.736</data>
+    </edge>
+    <edge source="ns2_83" target="pb2_453">
+      <data key="d1">0.894</data>
+    </edge>
+    <edge source="ns2_83" target="na_314">
+      <data key="d1">0.669</data>
+    </edge>
+    <edge source="ns2_83" target="ha_101">
+      <data key="d1">0.902</data>
+    </edge>
+    <edge source="ns2_83" target="ha_179">
+      <data key="d1">0.844</data>
+    </edge>
+    <edge source="na_386" target="ns2_29">
+      <data key="d1">0.600</data>
+    </edge>
+    <edge source="na_386" target="ns1_55">
+      <data key="d1">0.643</data>
+    </edge>
+    <edge source="na_386" target="ns1_131">
+      <data key="d1">0.567</data>
+    </edge>
+    <edge source="na_270" target="ha_233">
+      <data key="d1">0.735</data>
+    </edge>
+    <edge source="na_270" target="ha_179">
+      <data key="d1">0.766</data>
+    </edge>
+    <edge source="na_270" target="ns2_2">
+      <data key="d1">0.763</data>
+    </edge>
+    <edge source="na_270" target="ns1_125">
+      <data key="d1">0.753</data>
+    </edge>
+    <edge source="na_270" target="np_105">
+      <data key="d1">0.658</data>
+    </edge>
+    <edge source="na_270" target="m1_208">
+      <data key="d1">0.807</data>
+    </edge>
+    <edge source="na_270" target="pb2_299">
+      <data key="d1">0.788</data>
+    </edge>
+    <edge source="na_270" target="ha_13">
+      <data key="d1">0.848</data>
+    </edge>
+    <edge source="na_270" target="ns1_2">
+      <data key="d1">0.763</data>
+    </edge>
+    <edge source="na_270" target="pb2_453">
+      <data key="d1">0.800</data>
+    </edge>
+    <edge source="na_270" target="ha_101">
+      <data key="d1">0.804</data>
+    </edge>
+    <edge source="na_264" target="ha_233">
+      <data key="d1">0.730</data>
+    </edge>
+    <edge source="na_264" target="ha_179">
+      <data key="d1">0.760</data>
+    </edge>
+    <edge source="na_264" target="ns2_2">
+      <data key="d1">0.757</data>
+    </edge>
+    <edge source="na_264" target="ns1_125">
+      <data key="d1">0.747</data>
+    </edge>
+    <edge source="na_264" target="np_105">
+      <data key="d1">0.648</data>
+    </edge>
+    <edge source="na_264" target="m1_208">
+      <data key="d1">0.801</data>
+    </edge>
+    <edge source="na_264" target="pb2_299">
+      <data key="d1">0.783</data>
+    </edge>
+    <edge source="na_264" target="ha_13">
+      <data key="d1">0.831</data>
+    </edge>
+    <edge source="na_264" target="ns1_2">
+      <data key="d1">0.757</data>
+    </edge>
+    <edge source="na_264" target="pb2_453">
+      <data key="d1">0.794</data>
+    </edge>
+    <edge source="na_264" target="ha_101">
+      <data key="d1">0.798</data>
+    </edge>
+    <edge source="ha_233" target="ns2_2">
+      <data key="d1">0.886</data>
+    </edge>
+    <edge source="ha_233" target="ns1_125">
+      <data key="d1">0.875</data>
+    </edge>
+    <edge source="ha_233" target="m1_208">
+      <data key="d1">0.806</data>
+    </edge>
+    <edge source="ha_233" target="pb2_299">
+      <data key="d1">0.794</data>
+    </edge>
+    <edge source="ha_233" target="ns1_2">
+      <data key="d1">0.886</data>
+    </edge>
+    <edge source="ha_233" target="na_13">
+      <data key="d1">0.675</data>
+    </edge>
+    <edge source="ha_233" target="pb2_453">
+      <data key="d1">0.790</data>
+    </edge>
+    <edge source="ha_233" target="na_314">
+      <data key="d1">0.618</data>
+    </edge>
+    <edge source="ha_233" target="np_105">
+      <data key="d1">0.569</data>
+    </edge>
+    <edge source="ns1_131" target="ns2_29">
+      <data key="d1">0.561</data>
+    </edge>
+    <edge source="m1_208" target="ns1_125">
+      <data key="d1">0.838</data>
+    </edge>
+    <edge source="m1_208" target="np_105">
+      <data key="d1">0.616</data>
+    </edge>
+    <edge source="m1_208" target="ns2_2">
+      <data key="d1">0.851</data>
+    </edge>
+    <edge source="m1_208" target="ha_13">
+      <data key="d1">0.857</data>
+    </edge>
+    <edge source="m1_208" target="ns1_2">
+      <data key="d1">0.851</data>
+    </edge>
+    <edge source="m1_208" target="na_13">
+      <data key="d1">0.735</data>
+    </edge>
+    <edge source="m1_208" target="pb2_299">
+      <data key="d1">0.897</data>
+    </edge>
+    <edge source="m1_208" target="pb2_453">
+      <data key="d1">0.903</data>
+    </edge>
+    <edge source="m1_208" target="na_314">
+      <data key="d1">0.670</data>
+    </edge>
+    <edge source="m1_208" target="ha_101">
+      <data key="d1">0.904</data>
+    </edge>
+    <edge source="m1_208" target="ha_179">
+      <data key="d1">0.842</data>
+    </edge>
+    <edge source="ha_180" target="pa_362">
+      <data key="d1">0.514</data>
+    </edge>
+    <edge source="ha_180" target="na_432">
+      <data key="d1">0.502</data>
+    </edge>
+    <edge source="ha_13" target="ns2_2">
+      <data key="d1">0.805</data>
+    </edge>
+    <edge source="ha_13" target="ns1_125">
+      <data key="d1">0.794</data>
+    </edge>
+    <edge source="ha_13" target="pb2_299">
+      <data key="d1">0.839</data>
+    </edge>
+    <edge source="ha_13" target="ns1_2">
+      <data key="d1">0.805</data>
+    </edge>
+    <edge source="ha_13" target="na_13">
+      <data key="d1">0.691</data>
+    </edge>
+    <edge source="ha_13" target="pb2_453">
+      <data key="d1">0.848</data>
+    </edge>
+    <edge source="ha_13" target="na_314">
+      <data key="d1">0.638</data>
+    </edge>
+    <edge source="ha_13" target="np_105">
+      <data key="d1">0.641</data>
+    </edge>
+    <edge source="ns2_29" target="ns1_55">
+      <data key="d1">0.631</data>
+    </edge>
+    <edge source="na_13" target="ns1_2">
+      <data key="d1">0.699</data>
+    </edge>
+    <edge source="na_13" target="ha_179">
+      <data key="d1">0.702</data>
+    </edge>
+    <edge source="na_13" target="ns1_125">
+      <data key="d1">0.690</data>
+    </edge>
+    <edge source="na_13" target="pb2_299">
+      <data key="d1">0.717</data>
+    </edge>
+    <edge source="na_13" target="pb2_453">
+      <data key="d1">0.730</data>
+    </edge>
+    <edge source="na_13" target="ns2_2">
+      <data key="d1">0.699</data>
+    </edge>
+    <edge source="na_13" target="ha_101">
+      <data key="d1">0.731</data>
+    </edge>
+    <edge source="na_314" target="ns1_2">
+      <data key="d1">0.639</data>
+    </edge>
+    <edge source="na_314" target="ha_179">
+      <data key="d1">0.642</data>
+    </edge>
+    <edge source="na_314" target="ns1_125">
+      <data key="d1">0.632</data>
+    </edge>
+    <edge source="na_314" target="pb2_299">
+      <data key="d1">0.658</data>
+    </edge>
+    <edge source="na_314" target="pb2_453">
+      <data key="d1">0.663</data>
+    </edge>
+    <edge source="na_314" target="ns2_2">
+      <data key="d1">0.639</data>
+    </edge>
+    <edge source="na_314" target="ha_101">
+      <data key="d1">0.669</data>
+    </edge>
+    <edge source="ns1_55" target="na_40">
+      <data key="d1">0.505</data>
+    </edge>
+    <edge source="ha_179" target="ns2_2">
+      <data key="d1">0.937</data>
+    </edge>
+    <edge source="ha_179" target="ns1_125">
+      <data key="d1">0.922</data>
+    </edge>
+    <edge source="ha_179" target="pb2_299">
+      <data key="d1">0.829</data>
+    </edge>
+    <edge source="ha_179" target="ns1_2">
+      <data key="d1">0.937</data>
+    </edge>
+    <edge source="ha_179" target="pb2_453">
+      <data key="d1">0.823</data>
+    </edge>
+    <edge source="ha_179" target="np_105">
+      <data key="d1">0.592</data>
+    </edge>
+    <edge source="ns2_2" target="ns1_125">
+      <data key="d1">0.929</data>
+    </edge>
+    <edge source="ns2_2" target="np_105">
+      <data key="d1">0.590</data>
+    </edge>
+    <edge source="ns2_2" target="pb2_299">
+      <data key="d1">0.838</data>
+    </edge>
+    <edge source="ns2_2" target="ns1_2">
+      <data key="d1">0.946</data>
+    </edge>
+    <edge source="ns2_2" target="pb2_453">
+      <data key="d1">0.829</data>
+    </edge>
+    <edge source="ns2_2" target="ha_101">
+      <data key="d1">0.842</data>
+    </edge>
+    <edge source="np_105" target="ns1_125">
+      <data key="d1">0.582</data>
+    </edge>
+    <edge source="np_105" target="na_40">
+      <data key="d1">0.531</data>
+    </edge>
+    <edge source="np_105" target="ns1_2">
+      <data key="d1">0.590</data>
+    </edge>
+    <edge source="np_105" target="pb2_299">
+      <data key="d1">0.607</data>
+    </edge>
+    <edge source="np_105" target="pb2_453">
+      <data key="d1">0.613</data>
+    </edge>
+    <edge source="np_105" target="ha_101">
+      <data key="d1">0.612</data>
+    </edge>
+    <edge source="pa_362" target="ha_273">
+      <data key="d1">0.514</data>
+    </edge>
+    <edge source="pa_362" target="na_432">
+      <data key="d1">0.504</data>
+    </edge>
+    <edge source="ns1_125" target="pb2_299">
+      <data key="d1">0.825</data>
+    </edge>
+    <edge source="ns1_125" target="pb2_453">
+      <data key="d1">0.819</data>
+    </edge>
+    <edge source="ns1_125" target="ha_101">
+      <data key="d1">0.829</data>
+    </edge>
+    <edge source="ha_273" target="na_432">
+      <data key="d1">0.502</data>
+    </edge>
+    <edge source="ns1_2" target="pb2_299">
+      <data key="d1">0.838</data>
+    </edge>
+    <edge source="ns1_2" target="pb2_453">
+      <data key="d1">0.829</data>
+    </edge>
+    <edge source="ns1_2" target="ha_101">
+      <data key="d1">0.842</data>
+    </edge>
+    <edge source="pb2_299" target="ha_101">
+      <data key="d1">0.883</data>
+    </edge>
+    <edge source="pb2_453" target="ha_101">
+      <data key="d1">0.892</data>
+    </edge>
+  </graph>
+</graphml>

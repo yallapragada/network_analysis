@@ -1,0 +1,529 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key attr.name="weight" attr.type="string" for="edge" id="d1" />
+  <key attr.name="protein" attr.type="string" for="node" id="d0" />
+  <graph edgedefault="undirected">
+    <node id="m1_139">
+      <data key="d0">m1</data>
+    </node>
+    <node id="m2_95">
+      <data key="d0">m2</data>
+    </node>
+    <node id="ns2_14">
+      <data key="d0">ns2</data>
+    </node>
+    <node id="ns1_6">
+      <data key="d0">ns1</data>
+    </node>
+    <node id="m1_214">
+      <data key="d0">m1</data>
+    </node>
+    <node id="m2_79">
+      <data key="d0">m2</data>
+    </node>
+    <node id="pb1_113">
+      <data key="d0">pb1</data>
+    </node>
+    <node id="m1_116">
+      <data key="d0">m1</data>
+    </node>
+    <node id="m2_77">
+      <data key="d0">m2</data>
+    </node>
+    <node id="m2_28">
+      <data key="d0">m2</data>
+    </node>
+    <node id="ns1_70">
+      <data key="d0">ns1</data>
+    </node>
+    <node id="m2_60">
+      <data key="d0">m2</data>
+    </node>
+    <node id="m1_142">
+      <data key="d0">m1</data>
+    </node>
+    <node id="ha_507">
+      <data key="d0">ha</data>
+    </node>
+    <node id="m1_95">
+      <data key="d0">m1</data>
+    </node>
+    <node id="ns1_90">
+      <data key="d0">ns1</data>
+    </node>
+    <node id="ns1_194">
+      <data key="d0">ns1</data>
+    </node>
+    <node id="m1_181">
+      <data key="d0">m1</data>
+    </node>
+    <node id="m1_207">
+      <data key="d0">m1</data>
+    </node>
+    <node id="m2_43">
+      <data key="d0">m2</data>
+    </node>
+    <node id="m1_121">
+      <data key="d0">m1</data>
+    </node>
+    <node id="m2_14">
+      <data key="d0">m2</data>
+    </node>
+    <node id="m1_15">
+      <data key="d0">m1</data>
+    </node>
+    <node id="ns2_6">
+      <data key="d0">ns2</data>
+    </node>
+    <node id="m1_30">
+      <data key="d0">m1</data>
+    </node>
+    <node id="m2_27">
+      <data key="d0">m2</data>
+    </node>
+    <node id="pb2_560">
+      <data key="d0">pb2</data>
+    </node>
+    <node id="ns1_171">
+      <data key="d0">ns1</data>
+    </node>
+    <node id="m1_209">
+      <data key="d0">m1</data>
+    </node>
+    <node id="m2_18">
+      <data key="d0">m2</data>
+    </node>
+    <node id="m1_166">
+      <data key="d0">m1</data>
+    </node>
+    <node id="m2_20">
+      <data key="d0">m2</data>
+    </node>
+    <node id="ns2_37">
+      <data key="d0">ns2</data>
+    </node>
+    <node id="ha_180">
+      <data key="d0">ha</data>
+    </node>
+    <node id="ns1_206">
+      <data key="d0">ns1</data>
+    </node>
+    <node id="m1_101">
+      <data key="d0">m1</data>
+    </node>
+    <node id="m2_13">
+      <data key="d0">m2</data>
+    </node>
+    <node id="ns2_60">
+      <data key="d0">ns2</data>
+    </node>
+    <node id="m2_31">
+      <data key="d0">m2</data>
+    </node>
+    <node id="ns1_51">
+      <data key="d0">ns1</data>
+    </node>
+    <node id="m1_227">
+      <data key="d0">m1</data>
+    </node>
+    <node id="ns1_91">
+      <data key="d0">ns1</data>
+    </node>
+    <edge source="m1_139" target="m2_60">
+      <data key="d1">0.707</data>
+    </edge>
+    <edge source="m1_139" target="m2_95">
+      <data key="d1">0.593</data>
+    </edge>
+    <edge source="m1_139" target="m2_31">
+      <data key="d1">0.557</data>
+    </edge>
+    <edge source="m1_139" target="m2_18">
+      <data key="d1">0.503</data>
+    </edge>
+    <edge source="m1_139" target="m2_20">
+      <data key="d1">0.585</data>
+    </edge>
+    <edge source="m1_139" target="m2_77">
+      <data key="d1">0.582</data>
+    </edge>
+    <edge source="m1_139" target="m2_28">
+      <data key="d1">0.511</data>
+    </edge>
+    <edge source="m2_95" target="m1_15">
+      <data key="d1">0.705</data>
+    </edge>
+    <edge source="m2_95" target="m1_209">
+      <data key="d1">0.758</data>
+    </edge>
+    <edge source="m2_95" target="m1_166">
+      <data key="d1">0.787</data>
+    </edge>
+    <edge source="m2_95" target="m1_116">
+      <data key="d1">0.801</data>
+    </edge>
+    <edge source="m2_95" target="m1_181">
+      <data key="d1">0.704</data>
+    </edge>
+    <edge source="m2_95" target="m1_214">
+      <data key="d1">0.807</data>
+    </edge>
+    <edge source="m2_95" target="m1_142">
+      <data key="d1">0.743</data>
+    </edge>
+    <edge source="m2_95" target="m1_95">
+      <data key="d1">0.791</data>
+    </edge>
+    <edge source="m2_95" target="m1_101">
+      <data key="d1">0.785</data>
+    </edge>
+    <edge source="m2_95" target="m1_30">
+      <data key="d1">0.563</data>
+    </edge>
+    <edge source="m2_95" target="m1_207">
+      <data key="d1">0.638</data>
+    </edge>
+    <edge source="m2_95" target="m1_121">
+      <data key="d1">0.807</data>
+    </edge>
+    <edge source="ns2_14" target="ns1_90">
+      <data key="d1">0.652</data>
+    </edge>
+    <edge source="ns1_6" target="ns2_6">
+      <data key="d1">0.570</data>
+    </edge>
+    <edge source="m1_214" target="m2_60">
+      <data key="d1">0.696</data>
+    </edge>
+    <edge source="m1_214" target="m2_28">
+      <data key="d1">0.753</data>
+    </edge>
+    <edge source="m1_214" target="m2_79">
+      <data key="d1">0.631</data>
+    </edge>
+    <edge source="m1_214" target="m2_31">
+      <data key="d1">0.813</data>
+    </edge>
+    <edge source="m1_214" target="m2_18">
+      <data key="d1">0.564</data>
+    </edge>
+    <edge source="m1_214" target="m2_43">
+      <data key="d1">0.616</data>
+    </edge>
+    <edge source="m1_214" target="m2_77">
+      <data key="d1">0.920</data>
+    </edge>
+    <edge source="m1_214" target="m2_20">
+      <data key="d1">0.907</data>
+    </edge>
+    <edge source="m2_79" target="m1_209">
+      <data key="d1">0.604</data>
+    </edge>
+    <edge source="m2_79" target="m1_15">
+      <data key="d1">0.529</data>
+    </edge>
+    <edge source="m2_79" target="m1_142">
+      <data key="d1">0.596</data>
+    </edge>
+    <edge source="m2_79" target="m1_181">
+      <data key="d1">0.516</data>
+    </edge>
+    <edge source="m2_79" target="m1_95">
+      <data key="d1">0.608</data>
+    </edge>
+    <edge source="m2_79" target="m1_101">
+      <data key="d1">0.605</data>
+    </edge>
+    <edge source="m2_79" target="m1_207">
+      <data key="d1">0.524</data>
+    </edge>
+    <edge source="m2_79" target="m1_166">
+      <data key="d1">0.612</data>
+    </edge>
+    <edge source="m2_79" target="m1_116">
+      <data key="d1">0.628</data>
+    </edge>
+    <edge source="m2_79" target="m1_121">
+      <data key="d1">0.631</data>
+    </edge>
+    <edge source="pb1_113" target="pb2_560">
+      <data key="d1">0.502</data>
+    </edge>
+    <edge source="m1_116" target="m2_14">
+      <data key="d1">0.500</data>
+    </edge>
+    <edge source="m1_116" target="m2_60">
+      <data key="d1">0.692</data>
+    </edge>
+    <edge source="m1_116" target="m2_43">
+      <data key="d1">0.619</data>
+    </edge>
+    <edge source="m1_116" target="m2_31">
+      <data key="d1">0.826</data>
+    </edge>
+    <edge source="m1_116" target="m2_18">
+      <data key="d1">0.559</data>
+    </edge>
+    <edge source="m1_116" target="m2_20">
+      <data key="d1">0.897</data>
+    </edge>
+    <edge source="m1_116" target="m2_77">
+      <data key="d1">0.931</data>
+    </edge>
+    <edge source="m1_116" target="m2_28">
+      <data key="d1">0.744</data>
+    </edge>
+    <edge source="m2_77" target="m1_15">
+      <data key="d1">0.815</data>
+    </edge>
+    <edge source="m2_77" target="m1_209">
+      <data key="d1">0.831</data>
+    </edge>
+    <edge source="m2_77" target="m1_166">
+      <data key="d1">0.908</data>
+    </edge>
+    <edge source="m2_77" target="m1_181">
+      <data key="d1">0.691</data>
+    </edge>
+    <edge source="m2_77" target="m1_142">
+      <data key="d1">0.845</data>
+    </edge>
+    <edge source="m2_77" target="m1_95">
+      <data key="d1">0.881</data>
+    </edge>
+    <edge source="m2_77" target="m1_101">
+      <data key="d1">0.910</data>
+    </edge>
+    <edge source="m2_77" target="m1_30">
+      <data key="d1">0.647</data>
+    </edge>
+    <edge source="m2_77" target="m1_207">
+      <data key="d1">0.706</data>
+    </edge>
+    <edge source="m2_77" target="m1_121">
+      <data key="d1">0.920</data>
+    </edge>
+    <edge source="m2_28" target="m1_15">
+      <data key="d1">0.672</data>
+    </edge>
+    <edge source="m2_28" target="m1_209">
+      <data key="d1">0.665</data>
+    </edge>
+    <edge source="m2_28" target="m1_166">
+      <data key="d1">0.730</data>
+    </edge>
+    <edge source="m2_28" target="m1_181">
+      <data key="d1">0.605</data>
+    </edge>
+    <edge source="m2_28" target="m1_142">
+      <data key="d1">0.670</data>
+    </edge>
+    <edge source="m2_28" target="m1_95">
+      <data key="d1">0.760</data>
+    </edge>
+    <edge source="m2_28" target="m1_101">
+      <data key="d1">0.734</data>
+    </edge>
+    <edge source="m2_28" target="m1_30">
+      <data key="d1">0.652</data>
+    </edge>
+    <edge source="m2_28" target="m1_207">
+      <data key="d1">0.636</data>
+    </edge>
+    <edge source="m2_28" target="m1_121">
+      <data key="d1">0.753</data>
+    </edge>
+    <edge source="ns1_70" target="ha_180">
+      <data key="d1">0.521</data>
+    </edge>
+    <edge source="ns1_70" target="ha_507">
+      <data key="d1">0.520</data>
+    </edge>
+    <edge source="m2_60" target="m1_15">
+      <data key="d1">0.708</data>
+    </edge>
+    <edge source="m2_60" target="m1_209">
+      <data key="d1">0.664</data>
+    </edge>
+    <edge source="m2_60" target="m1_166">
+      <data key="d1">0.676</data>
+    </edge>
+    <edge source="m2_60" target="m1_181">
+      <data key="d1">0.859</data>
+    </edge>
+    <edge source="m2_60" target="m1_142">
+      <data key="d1">0.654</data>
+    </edge>
+    <edge source="m2_60" target="m1_95">
+      <data key="d1">0.673</data>
+    </edge>
+    <edge source="m2_60" target="m1_101">
+      <data key="d1">0.683</data>
+    </edge>
+    <edge source="m2_60" target="m1_30">
+      <data key="d1">0.511</data>
+    </edge>
+    <edge source="m2_60" target="m1_207">
+      <data key="d1">0.562</data>
+    </edge>
+    <edge source="m2_60" target="m1_121">
+      <data key="d1">0.696</data>
+    </edge>
+    <edge source="m1_142" target="m2_14">
+      <data key="d1">0.538</data>
+    </edge>
+    <edge source="m1_142" target="m2_43">
+      <data key="d1">0.660</data>
+    </edge>
+    <edge source="m1_142" target="m2_31">
+      <data key="d1">0.771</data>
+    </edge>
+    <edge source="m1_142" target="m2_18">
+      <data key="d1">0.547</data>
+    </edge>
+    <edge source="m1_142" target="m2_20">
+      <data key="d1">0.838</data>
+    </edge>
+    <edge source="m1_95" target="m2_31">
+      <data key="d1">0.793</data>
+    </edge>
+    <edge source="m1_95" target="m2_18">
+      <data key="d1">0.564</data>
+    </edge>
+    <edge source="m1_95" target="m2_43">
+      <data key="d1">0.609</data>
+    </edge>
+    <edge source="m1_95" target="m2_20">
+      <data key="d1">0.870</data>
+    </edge>
+    <edge source="ns1_194" target="ns2_37">
+      <data key="d1">0.694</data>
+    </edge>
+    <edge source="m1_181" target="m2_14">
+      <data key="d1">0.532</data>
+    </edge>
+    <edge source="m1_181" target="m2_31">
+      <data key="d1">0.640</data>
+    </edge>
+    <edge source="m1_181" target="m2_18">
+      <data key="d1">0.583</data>
+    </edge>
+    <edge source="m1_181" target="m2_20">
+      <data key="d1">0.695</data>
+    </edge>
+    <edge source="m1_207" target="m2_14">
+      <data key="d1">0.574</data>
+    </edge>
+    <edge source="m1_207" target="m2_43">
+      <data key="d1">0.713</data>
+    </edge>
+    <edge source="m1_207" target="m2_31">
+      <data key="d1">0.660</data>
+    </edge>
+    <edge source="m1_207" target="m2_18">
+      <data key="d1">0.556</data>
+    </edge>
+    <edge source="m1_207" target="m2_20">
+      <data key="d1">0.701</data>
+    </edge>
+    <edge source="m2_43" target="m1_209">
+      <data key="d1">0.649</data>
+    </edge>
+    <edge source="m2_43" target="m1_15">
+      <data key="d1">0.563</data>
+    </edge>
+    <edge source="m2_43" target="m1_166">
+      <data key="d1">0.619</data>
+    </edge>
+    <edge source="m2_43" target="m1_101">
+      <data key="d1">0.612</data>
+    </edge>
+    <edge source="m2_43" target="m1_30">
+      <data key="d1">0.808</data>
+    </edge>
+    <edge source="m2_43" target="m1_121">
+      <data key="d1">0.616</data>
+    </edge>
+    <edge source="m1_121" target="m2_31">
+      <data key="d1">0.813</data>
+    </edge>
+    <edge source="m1_121" target="m2_18">
+      <data key="d1">0.564</data>
+    </edge>
+    <edge source="m1_121" target="m2_20">
+      <data key="d1">0.907</data>
+    </edge>
+    <edge source="m2_14" target="m1_209">
+      <data key="d1">0.542</data>
+    </edge>
+    <edge source="m2_14" target="m1_30">
+      <data key="d1">0.685</data>
+    </edge>
+    <edge source="m2_14" target="m1_166">
+      <data key="d1">0.500</data>
+    </edge>
+    <edge source="m1_15" target="m2_31">
+      <data key="d1">0.711</data>
+    </edge>
+    <edge source="m1_15" target="m2_18">
+      <data key="d1">0.501</data>
+    </edge>
+    <edge source="m1_15" target="m2_20">
+      <data key="d1">0.789</data>
+    </edge>
+    <edge source="m1_30" target="m2_13">
+      <data key="d1">0.508</data>
+    </edge>
+    <edge source="m1_30" target="m2_31">
+      <data key="d1">0.591</data>
+    </edge>
+    <edge source="m1_30" target="m2_18">
+      <data key="d1">0.554</data>
+    </edge>
+    <edge source="m1_30" target="m2_20">
+      <data key="d1">0.643</data>
+    </edge>
+    <edge source="m2_27" target="m1_227">
+      <data key="d1">0.515</data>
+    </edge>
+    <edge source="ns1_171" target="ns2_37">
+      <data key="d1">0.533</data>
+    </edge>
+    <edge source="m1_209" target="m2_31">
+      <data key="d1">0.785</data>
+    </edge>
+    <edge source="m1_209" target="m2_18">
+      <data key="d1">0.551</data>
+    </edge>
+    <edge source="m1_209" target="m2_20">
+      <data key="d1">0.824</data>
+    </edge>
+    <edge source="m2_18" target="m1_166">
+      <data key="d1">0.559</data>
+    </edge>
+    <edge source="m2_18" target="m1_101">
+      <data key="d1">0.551</data>
+    </edge>
+    <edge source="m1_166" target="m2_31">
+      <data key="d1">0.807</data>
+    </edge>
+    <edge source="m1_166" target="m2_20">
+      <data key="d1">0.879</data>
+    </edge>
+    <edge source="m2_20" target="m1_101">
+      <data key="d1">0.879</data>
+    </edge>
+    <edge source="ns2_37" target="ns1_206">
+      <data key="d1">0.552</data>
+    </edge>
+    <edge source="ns2_37" target="ns1_91">
+      <data key="d1">0.534</data>
+    </edge>
+    <edge source="m1_101" target="m2_31">
+      <data key="d1">0.802</data>
+    </edge>
+    <edge source="ns2_60" target="ns1_51">
+      <data key="d1">0.587</data>
+    </edge>
+  </graph>
+</graphml>

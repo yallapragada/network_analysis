@@ -3,14 +3,17 @@ import datetime
 import math
 import operator
 import sys
+import os
+import random
+import socket
 
 import networkx as nx
 from Bio import SeqIO, AlignIO
+from Bio.SeqUtils import seq3
 from minepy import MINE
-from numpy import transpose, array
+from numpy import transpose, array, corrcoef
 from pandas import DataFrame
 from scipy.stats import mode
-
 from plot_util import plotEntropies
 
 
@@ -177,12 +180,36 @@ def generate_binary_sequence(fasta_list):
     return array([[1 if x==mod[i] else 0 for i,x in enumerate(y)] for y in fasta_list])
 
 
+#input = bio seq objects
 def get_consensus_sequence(sequences):
     raw_sequences = [x.seq for x in sequences]
     mod = [mode(y)[0][0] for y in transpose(array([list(z) for z in raw_sequences]))]
     consensus_sequence = ''.join(mod)
     return consensus_sequence
 
+
+#given a fasta file, get corresponding consensus sequence
+def get_consensus_sequence_fasta(fasta_file):
+    sequences           = AlignIO.read(fasta_file, 'fasta')
+    consensus_sequence  = get_consensus_sequence(sequences=sequences)
+    return consensus_sequence
+
+
+# input = list of sequence strings (raw sequences)
+def get_consensus_sequence_new(sequences):
+    mod = [mode(y)[0][0] for y in transpose(array([list(z) for z in sequences]))]
+    consensus_sequence = ''.join(mod)
+    return consensus_sequence
+
+
+# discard sequence if more than 10% gaps
+# we do this by converting the complete sequence to a gap and hence it will imply static residue across strains
+def check_gaps(sequence):
+    num_gaps = str(sequence).count('-')
+    len_sequence = len(sequence)
+    if num_gaps > len(sequence)/10:
+        sequence = list('-' * len_sequence)
+    return sequence
 
 def convert_01(sequence, consensus_sequence):
     return [1 if x==consensus_sequence[i] else 0 for i,x in enumerate(sequence)]
@@ -257,6 +284,19 @@ def change_to_123(residue, consensus_residue):
         else:
             return 3
 
+# get a subset of edges based on weight
+def get_best_edges(G, start, end, reverse):
+    edges=G.edges(data=True)
+    x=sorted(edges, key=lambda tup: tup[2]['weight'], reverse=reverse)
+    print(x[start:end])
+    return x[start:end]
+
+
+def get_top_node(G):
+    centrality_dict = nx.degree_centrality(G)
+    degree_centrality_nodes = sorted(centrality_dict.items(), key=operator.itemgetter(1))
+    return degree_centrality_nodes[0]
+
 
 # get top n nodes with highest degree
 def get_highest_degree(G, n):
@@ -267,6 +307,7 @@ def get_highest_degree(G, n):
     else:
         central_nodesX = [node[0] for node in degree_centrality_nodes]
     return central_nodesX
+
 
 def get_eigen_node(G):
     eigen_dict = nx.eigenvector_centrality(G)
@@ -299,14 +340,12 @@ def get_sequences_from_alignment(alignment):
     return sequences
 
 
-def perform_transpose(binary_sequences):
-    transposed_list = transpose(array(binary_sequences)).tolist()
+def perform_transpose(sequences):
+    transposed_list = transpose(array(sequences)).tolist()
     return transposed_list
-
 
 def create_DF_from_dict(dictionary):
     return DataFrame(dictionary)
-
 
 def find(list_of_tuples, value):
     try:
@@ -314,6 +353,23 @@ def find(list_of_tuples, value):
     except:
         print("***")
         return None
+
+def write_mics_to_csv(mics, p1, p2, cutoff):
+    keys = ['p1','p2','x','y','weight']
+    mics_file_name = p1 + '_' + p2 + '_' + cutoff + '.csv'
+    with open(mics_file_name,'w',encoding='utf8', newline='') as output_file:
+        dict_writer = csv.DictWriter(output_file, keys)
+        dict_writer.writeheader()
+        dict_writer.writerows(mics)
+
+
+def write_avg_entropies_to_csv(average_entropies):
+    keys = ['dataset', 'ha', 'na', 'm1', 'm2', 'np', 'pb1', 'pb2', 'pa', 'ns1', 'ns2']
+    ent_filename = 'C:\\uday\\gmu\\correlations\\results\\10proteins\\entropies\\average_entropies.csv'
+    with open(ent_filename, 'w', encoding='utf8', newline='') as output_file:
+        dict_writer = csv.DictWriter(output_file, keys)
+        dict_writer.writeheader()
+        dict_writer.writerows(average_entropies)
 
 def write_strains_to_csv(list_of_strains, title):
 
@@ -350,6 +406,39 @@ def get_matching_sequence(records, strain_name):
         if (get_strain_name(record) == strain_name):
             return record
     return None
+
+
+def modify_sequences(sequences):
+    sequencesT = perform_transpose(sequences=sequences)
+    new_sequencesT = [check_gaps(sequenceT) for sequenceT in sequencesT]
+    new_sequences = perform_transpose(sequences=new_sequencesT)
+    return new_sequences
+
+
+def create_01_sequences_gaps(file1, file2):
+    sequences1 = AlignIO.read(file1, 'fasta')
+    sequences2 = AlignIO.read(file2, 'fasta')
+
+    p1_sequences = []  # list of p1 sequences
+    p2_sequences = []  # list of p2 sequences
+
+    for sequence1 in sequences1:
+        strain_name = get_strain_name(sequence1)
+        sequence2 = get_matching_sequence(sequences2, strain_name=strain_name)
+        if (sequence2):
+            p1_sequences.append(list(sequence1.seq))
+            p2_sequences.append(list(sequence2.seq))
+
+    p1_new_sequences = modify_sequences(p1_sequences)
+    p2_new_sequences = modify_sequences(p2_sequences)
+
+    consensus_sequence1 = get_consensus_sequence_new(p1_new_sequences)
+    consensus_sequence2 = get_consensus_sequence_new(p2_new_sequences)
+
+    p1_sequences_01 = [convert_01(p1_new_sequence, consensus_sequence1) for p1_new_sequence in p1_new_sequences]
+    p2_sequences_01 = [convert_01(p2_new_sequence, consensus_sequence2) for p2_new_sequence in p2_new_sequences]
+
+    return p1_sequences_01, p2_sequences_01
 
 
 def create_01_sequences(file1, file2):
@@ -466,12 +555,11 @@ def perform_mic_2p(p1_sequences, p2_sequences, p1, p2, cutoff=0.5):
                 mic_score['y'] = p2+'_'+str(idx2+1)
                 mic_score['p1'] = p1
                 mic_score['p2'] = p2
-                mic_score['weight'] = mine.mic()
+                mic_score['weight'] = format(mine.mic(), '.3f')
                 mic_scores.append(mic_score)
 
-    #print('computed ', len(mic_scores), ' mics for ', p1, p2, 'for cutoff ', cutoff)
+    write_mics_to_csv(mics=mic_scores, p1=p1, p2=p2, cutoff=cutoff)
     return mic_scores
-
 
 def generate_output_filename(output_dir, basename):
     suffix = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -508,6 +596,7 @@ def read_file(filename):
     csv_f = csv.reader(f)
     return csv_f
 
+
 def run_entropies():
     file1 = sys.argv[1]
     file2 = sys.argv[2]
@@ -529,17 +618,6 @@ def run_entropies():
     plotEntropies(entropies1, residues1, p1)
     plotEntropies(entropies2, residues2, p2)
 
-#print(convert_01('ABCDEFGHIJ', 'AACDEEGHIJ'))
-#split_fasta('strains_2859_2013to15.fasta')
-#split_fasta('strains_230_2015.fasta')
-#split_fasta('strains_865_2013.fasta')
-#split_fasta('strains_310_90_to_04.fasta')
-#split_fasta('strains_432_05_to_07.fasta')
-#split_fasta_file_to_smaller('strains_800_name_A.fasta', 2)
-#split_fasta('strains_random_400.fasta')
-#split_fasta('strains_800_name_A_subset.fasta')
-#split_fasta('strains_800_random.fasta')
-#split_fasta('all_strains_comp_gen.fasta')
 
 def test_dict():
     dict1 = {'x':'ha_10', 'y':'na_11', 'p1':'ha', 'p2':'na', 'weight':'0.8'}
@@ -568,28 +646,79 @@ def test_dict():
     df=create_df_from_dict(dictionaries)
     create_report(df)
 
+
 def read_csv_strains(file):
     strains = list(read_file(file))[0]
 
 
-#read_csv('unique_strains_100.csv')
-
-#test_dict()
-
-#def test_convert_B62a():
-    sequence = 'EGRMNYYWTLVEPGDKITFEA'
-    consensus_sequence = 'EGRMNYYWTGGGPGDKITFEA'
-    blosum_matrix = load_blosum_matrix('blosum62.txt')
-    print(blosum_matrix)
-    print(convert_01_B62a(sequence, consensus_sequence, blosum_matrix))
-
-#test_convert_B62a()
+def write_cliques_to_csv(cliques):
+    with open("cliques.csv", "wt") as f:
+        writer = csv.writer(f)
+        writer.writerows(cliques)
 
 
 def read_graphml(infilename):
     graph = nx.read_graphml(infilename)
     return graph
 
+def write_macro_graphml(outgraph, folder, infilename):
+    nx.write_graphml(outgraph, folder + os.sep + 'p_'+infilename)
 
-def write_graphml(outgraph, infilename):
-    nx.write_graphml(outgraph, 'p_'+infilename)
+def get_3letter_aa(one_letter_aa):
+    return seq3(one_letter_aa, custom_map={"*": "***"}, undef_code='---')
+
+
+#compare nodes in two graphs
+def compare_two_graphs(file1, file2):
+    g1 = read_graphml(file1)
+    g2 = read_graphml(file2)
+
+    nodes1 = g1.nodes()
+    nodes2 = g2.nodes()
+
+    matches = []
+    in1only = []
+    in2only = []
+    for node in nodes1:
+        if node in nodes2:
+            matches.append(node)
+        else:
+            in1only.append(node)
+
+    for node in nodes2:
+        if node not in nodes1:
+            in2only.append(node)
+
+    print(len(nodes1), len(nodes2), len(matches), len(in1only), len(in2only))
+
+# created this when I was trying 'snap' since snap likes .pajek files
+def create_pajek(graphml_filename):
+    pajek_filename = graphml_filename.split('.')[0] + '.pajek'
+    ingraph = read_graphml(graphml_filename)
+    nx.write_pajek(ingraph, pajek_filename)
+
+# memory-intensive, runs out of memory for big graphs
+def create_clique_top_node(graphml_filename):
+    g = read_graphml(graphml_filename)
+    top_node = get_top_node(g)
+    print('before finding cliques for ' + top_node[0])
+    cliques = nx.cliques_containing_node(g, nodes=[top_node])
+    write_cliques_to_csv(cliques=cliques)
+
+def read_datasets_csv():
+
+    if socket.gethostname() == 'omics':
+        DATASETS_CSV = '/home/uyallapr/network_analysis_web/corrmut/datasets.csv'
+    else:
+        DATASETS_CSV = 'C:\\Users\\uday\\pycharm_projects\\network_analysis_web\\corrmut\\datasets.csv'
+
+    datasets_csv = open(DATASETS_CSV)
+    lines = csv.reader(datasets_csv)
+    datasets = []
+    for line in lines:
+        dataset={}
+        dataset['name']=line[0]
+        dataset['no_of_strains']=line[1]
+        dataset['comments']=line[2]
+        datasets.append(dataset)
+    return datasets
