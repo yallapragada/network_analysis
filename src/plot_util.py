@@ -1,8 +1,12 @@
+# this script contains several utility plotting functions
+
 from bokeh.io import output_file, show
 from bokeh.plotting import figure
 import matplotlib.pyplot as plt
 import matplotlib, os
+import matplotlib.patches as mpatches
 import operator
+
 
 image_magick_colors = ['DarkRed', 'DarkBlue', 'DarkOrange', 'DarkGreen', 'DeepPink', 'indigo', 'LightGreen',
                        'LightGoldenrod', 'magenta', 'olive', 'PaleGreen', 'yellow', 'turquoise', 'tan', 'thistle',
@@ -41,6 +45,7 @@ def plot_mic_histogram(mics, plot_file, dataset, bins):
     plt.title("Histogram of mic values for " + dataset, fontsize=18)
     plt.xlabel("mic", fontsize=14)
     plt.ylabel("counts", fontsize=14)
+    plt.tick_params(axis='both', labelsize=12)
     plt.tight_layout()
     plt.savefig(plot_file, format='png',bbox_inches="tight")
     plt.close()
@@ -61,7 +66,7 @@ def plot_simple_bokeh_line(x,y, filename, height, width, xaxis, yaxis, title):
     show(p)
 
 
-def plot_residue_counts(rcc_list, title, folder, mic):
+def plot_residue_counts(rcc_list, title, folder, filename):
     plt.style.use(['seaborn-white', 'seaborn-paper'])
     matplotlib.rc("font", family="Times New Roman")
 
@@ -70,7 +75,7 @@ def plot_residue_counts(rcc_list, title, folder, mic):
         plt.plot(values)
     plt.title(title)
     plt.tight_layout()
-    savepath = get_save_path(folder, 'rcc_'+mic, 'png')
+    savepath = get_save_path(folder, filename, 'png')
     plt.savefig(savepath, format='png')
     plt.close()
 
@@ -80,11 +85,14 @@ def plot_in_out_entropies(in_network_x, in_network_y, folder, protein, colors):
     plt.style.use(['seaborn-white', 'seaborn-paper'])
     matplotlib.rc("font", family="Times New Roman")
 
-    #plt.gca().set_color_cycle(['red', 'green'])
     plt.scatter(in_network_x, in_network_y, c=colors, s=5)
     plt.title(protein.upper() + ':entropy for in vs out-of network residues', fontsize=16)
     plt.xlabel('residue#', fontsize=12)
     plt.ylabel('entropy', fontsize=12)
+
+    red_patch = mpatches.Patch(color='red', label='in-network')
+    blue_patch = mpatches.Patch(color='green', label='out-of-network')
+    plt.legend(handles=[red_patch, blue_patch])
     plt.tight_layout()
     savepath = get_save_path(folder, protein+'_ent', 'png')
     plt.savefig(savepath, format='png')
@@ -95,7 +103,6 @@ def plot_in_edges_acc(num_edges, in_network_acc, folder, protein):
     plt.style.use(['seaborn-white', 'seaborn-paper'])
     matplotlib.rc("font", family="Times New Roman")
 
-    #plt.gca().set_color_cycle(['red', 'green'])
     plt.scatter(num_edges, in_network_acc, s=5)
     plt.title(protein.upper() + ':acc vs num-edges for in-network residues', fontsize=16)
     plt.xlabel('num of edges', fontsize=12)
