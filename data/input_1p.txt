@@ -1,0 +1,10 @@
+ha.afasta
+na.afasta
+m1.afasta
+m2.afasta
+np.afasta
+pb1.afasta
+pb2.afasta
+ns1.afasta
+ns2.afasta
+pa.afasta
