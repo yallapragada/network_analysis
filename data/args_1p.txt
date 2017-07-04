@@ -1,0 +1,6 @@
+input_1p.txt,uh3n2_swine_all,0.1,C:\\uday\\gmu\\correlations\\results\\10proteins\\mic_csv\\uh3n2_swine_all\\intra
+input_1p.txt,uh3n2_human_all,0.1,C:\\uday\\gmu\\correlations\\results\\10proteins\\mic_csv\\uh3n2_human_all\\intra
+input_1p.txt,uh7n9,0.1,C:\\uday\\gmu\\correlations\\results\\10proteins\\mic_csv\\uh7n9\\intra
+input_1p.txt,uh5_avian_all,0.1,C:\\uday\\gmu\\correlations\\results\\10proteins\\mic_csv\\uh5_avian_all\\intra
+input_1p.txt,uh1n1_swine_all,0.1,C:\\uday\\gmu\\correlations\\results\\10proteins\\mic_csv\\uh1n1_swine_all\\intra
+input_1p.txt,h1n1_all_max300,0.1,C:\\uday\\gmu\\correlations\\results\\10proteins\\mic_csv\\uh1n1_human_all\\intra
