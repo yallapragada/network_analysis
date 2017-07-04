@@ -1,0 +1,7 @@
+C:\\uday\\gmu\\correlations\\data\\2017 data\\human\\h1n1_all_max300\\aligned,C:\\uday\\gmu\\correlations\\results\\10proteins\\macro\\uh1n1_all_max300_05_01.graphml,HUMAN_H1N1
+C:\\uday\\gmu\\correlations\\data\\2017 data\\human\\human_h3n2_all\\aligned,C:\\uday\\gmu\\correlations\\results\\10proteins\\macro\\uh3n2_human_all_05_01.graphml,HUMAN_H3N2
+C:\\Users\\uday\\pycharm_projects\\network_analysis\\data\\uh3n2_swine_all,C:\\uday\\gmu\\correlations\\results\\10proteins\\macro\\uh3n2_swine_all_05_01.graphml,SWINE_H3N2
+C:\\Users\\uday\\pycharm_projects\\network_analysis\\data\\uh1n1_swine_all,C:\\uday\\gmu\\correlations\\results\\10proteins\\macro\\uh1n1_swine_all_05_01.graphml,SWINE_H1N1
+C:\\Users\\uday\\pycharm_projects\\network_analysis\\data\\uall,C:\\uday\\gmu\\correlations\\results\\10proteins\\macro\\uall_05_01.graphml,HUMAN_ALL
+C:\\Users\\uday\\pycharm_projects\\network_analysis\\data\\uh5_avian_all,C:\\uday\\gmu\\correlations\\results\\10proteins\\macro\\uh5_avian_all_05_01.graphml,AVIAN_H5
+C:\\Users\\uday\\pycharm_projects\\network_analysis\\data\\uh7n9,C:\\uday\\gmu\\correlations\\results\\10proteins\\macro\\uh7n9_05_01.graphml,H7N9
