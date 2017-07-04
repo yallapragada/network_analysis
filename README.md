@@ -10,7 +10,7 @@ correlated mutations in proteins.
 
 # details
 * download strains from fludb.org
-* split the strain file to individual (protein) fasta files
+* run split_fasta.py to split the strain file to individual (protein) fasta files
 * align using MUSCLE/MAFFT
 * run deduplication script - duplicate_remover.py
 * run graph_analysis_2p.py or graph_analysis_1p.py for computing MICs and creating CSV files with node and edge data for a given dataset
