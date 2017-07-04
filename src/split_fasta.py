@@ -1,3 +1,10 @@
+'''
+when you download strain data with all proteins, you get a single fasta file
+that contains sequences of all 10 proteins for a given strain
+this script splits a big fasta file that contains all 10 proteins of influenza
+to 10 seperate fasta files per protein
+'''
+
 import graph_analysis_util as gau
 import sys
 from Bio import SeqIO
@@ -7,8 +14,10 @@ def regular_split():
     strains_file = sys.argv[1]
     gau.split_fasta(strains_file)
 
-#get list of strain names; randomly pick 300 strains per year
-def get_strain_names(fasta_file):
+#get list of strain names; randomly pick k strains per year if
+#no. of strains > k for that year
+#includes only strains < max_year
+def get_strain_names(fasta_file, k, max_year):
 
     strain_names    = []
     strains_by_year = {}
@@ -34,21 +43,29 @@ def get_strain_names(fasta_file):
         print(key, len(value))
 
     for key, value in strains_by_year.items():
-        if len(value) > 300:
-            small_list = random.sample(value, k=300)
-            for strain_name in small_list:
-                strain_names.append(strain_name)
+        try:
+            year = int(key)
+        except Exception:
+            year = 0
+        if year < max_year:
+            print(key + ' is less than ' + str(max_year))
+            if len(value) > k:
+                small_list = random.sample(value, k=k)
+                for strain_name in small_list:
+                    strain_names.append(strain_name)
+            else:
+                for strain_name in value:
+                    strain_names.append(strain_name)
         else:
-            for strain_name in value:
-                strain_names.append(strain_name)
+            print(key + ' is greater than ' + str(max_year))
 
     return strain_names
 
-#splits big fasta file to protein fasta files; max 300 strains per year
+#splits big fasta file to protein fasta files
 def custom_split():
 
     fasta_file = sys.argv[1]
-    strain_names = get_strain_names(fasta_file)
+    strain_names = get_strain_names(fasta_file, k=100, max_year=2020)
 
     ha_sequences = []
     na_sequences = []
