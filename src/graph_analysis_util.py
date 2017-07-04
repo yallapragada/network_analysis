@@ -16,6 +16,7 @@ from pandas import DataFrame
 from scipy.stats import mode
 from plot_util import plotEntropies
 
+# utility script, contains several utility functions used by other driver scripts
 
 def load_blosum_matrix(matrix_filename):
 
