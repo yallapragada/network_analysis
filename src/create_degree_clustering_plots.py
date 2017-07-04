@@ -5,9 +5,8 @@ from graph_analysis_util import read_graphml
 import os
 import sys
 
-# script to create degree and clustering plots
-# use create_degree_histograms.bat(/sh) to run this script for multiple datasets
-# usage: python create_degree_clustering_plots.py [output_folder_location] [name of graphml] [title for plot]
+# script to create degree and clustering plots from a graphml
+# usage: python create_degree_clustering_plots.py [output_folder_location] [path to graphml] [title for plot]
 
 #degree distribution
 def create_clustering_plot(g, folder, title):
