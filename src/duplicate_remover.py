@@ -1,8 +1,16 @@
+'''
+script to remove duplicates after concatenating all 10 proteins and create new fasta files with deduplicated sequences
+usage: python duplicate_remover.py [folder containing aligned files with .afasta extension
+'''
+
+
 import sys
 from Bio import AlignIO
 from Bio.Align import MultipleSeqAlignment
 import os
 import graph_analysis_util as util
+
+strains_by_year = {}
 
 
 def concat_sequences(file1, file2, file3, file4, file5, file6, file7, file8, file9, file10):
@@ -33,13 +41,29 @@ def concat_sequences(file1, file2, file3, file4, file5, file6, file7, file8, fil
         sequence10 = util.get_matching_sequence(sequences10, strain_name=strain_name)
 
         if (sequence2 and sequence3 and sequence4 and sequence5 and sequence6 and sequence7 and sequence8 and sequence9 and sequence10):
+            update_year_counts(sequence1)
             complete_sequence=[]
             complete_sequence.append(util.get_strain_name(sequence1))
             complete_sequence.append(sequence1.seq+sequence2.seq+sequence3.seq+sequence4.seq+sequence5.seq+sequence6.seq+sequence7.seq+sequence8.seq+sequence9.seq+sequence10.seq)
             complete_sequences.append(complete_sequence)
 
+    print_year_counts()
     return complete_sequences
 
+
+def update_year_counts(record):
+
+    strain_name = util.get_strain_name(record)
+    year        = strain_name.split('/')[-1]
+    if year in strains_by_year:
+        strains_by_year[year].append(strain_name)
+    else:
+        strains_by_year[year]   = [strain_name]
+
+def print_year_counts():
+    # what are the counts per year?
+    for key, value in strains_by_year.items():
+        print(key, len(value))
 
 def sequence_cleaner(complete_sequences):
     # Create our hash table to add the sequences
@@ -108,5 +132,6 @@ def run_unique_fasta_creator():
         AlignIO.write(msa, handle=unique_file, format='fasta')
 
 
-run_dup_remover()
-run_unique_fasta_creator()
+if __name__ == '__main__':
+    run_dup_remover()
+    run_unique_fasta_creator()
