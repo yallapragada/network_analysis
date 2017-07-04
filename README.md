@@ -22,3 +22,4 @@ correlated mutations in proteins.
 * run create_plots_from_neo4j.py to create node and edge count plots from data loaded in neo4j
 * run cooccurence_counts.py to perform residue coocurrence analysis
 * run create_mic_histogram.py to create a histogram of MICs
+* run in_out_comparision.py to perform entropy and solvent accessibility comparision of in-network and out-of-network residues
