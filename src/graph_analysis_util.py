@@ -242,6 +242,7 @@ def change_to_01_B62a(residue, consensus_residue, b62_matrix):
     else:
         return 1
 
+
 def convert_all_to_123(sequences):
     mod = [mode(x)[0][0] for x in transpose(array([list(z) for z in sequences]))]
     consensus_sequence = ''.join(mod)
@@ -285,10 +286,9 @@ def change_to_123(residue, consensus_residue):
             return 3
 
 # get a subset of edges based on weight
-def get_best_edges(G, start, end, reverse):
+def get_edges(G, start, end, reverse):
     edges=G.edges(data=True)
     x=sorted(edges, key=lambda tup: tup[2]['weight'], reverse=reverse)
-    print(x[start:end])
     return x[start:end]
 
 
@@ -344,8 +344,10 @@ def perform_transpose(sequences):
     transposed_list = transpose(array(sequences)).tolist()
     return transposed_list
 
+
 def create_DF_from_dict(dictionary):
     return DataFrame(dictionary)
+
 
 def find(list_of_tuples, value):
     try:
@@ -354,22 +356,35 @@ def find(list_of_tuples, value):
         print("***")
         return None
 
-def write_mics_to_csv(mics, p1, p2, cutoff):
+
+def write_mics_to_csv(mics, p1, p2, cutoff, out_folder):
     keys = ['p1','p2','x','y','weight']
-    mics_file_name = p1 + '_' + p2 + '_' + cutoff + '.csv'
+    mics_file_name = out_folder + os.sep + p1 + '_' + p2 + '_' + cutoff + '.csv'
     with open(mics_file_name,'w',encoding='utf8', newline='') as output_file:
         dict_writer = csv.DictWriter(output_file, keys)
         dict_writer.writeheader()
         dict_writer.writerows(mics)
+    output_file.close()
 
 
-def write_avg_entropies_to_csv(average_entropies):
+def write_avg_accs_to_csv(acc_dict_list, filename):
+    keys = acc_dict_list[0].keys()
+    ent_filename = 'C:\\uday\\gmu\\correlations\\results\\10proteins\\acc\\' + filename
+    with open(ent_filename, 'w', encoding='utf8', newline='') as output_file:
+        dict_writer = csv.DictWriter(output_file, keys)
+        dict_writer.writeheader()
+        dict_writer.writerows(acc_dict_list)
+    output_file.close()
+
+
+def write_avg_entropies_to_csv(average_entropies, filename):
     keys = ['dataset', 'ha', 'na', 'm1', 'm2', 'np', 'pb1', 'pb2', 'pa', 'ns1', 'ns2']
-    ent_filename = 'C:\\uday\\gmu\\correlations\\results\\10proteins\\entropies\\average_entropies.csv'
+    ent_filename = 'C:\\uday\\gmu\\correlations\\results\\10proteins\\entropies\\' + filename
     with open(ent_filename, 'w', encoding='utf8', newline='') as output_file:
         dict_writer = csv.DictWriter(output_file, keys)
         dict_writer.writeheader()
         dict_writer.writerows(average_entropies)
+    output_file.close()
 
 def write_strains_to_csv(list_of_strains, title):
 
@@ -413,6 +428,16 @@ def modify_sequences(sequences):
     new_sequencesT = [check_gaps(sequenceT) for sequenceT in sequencesT]
     new_sequences = perform_transpose(sequences=new_sequencesT)
     return new_sequences
+
+
+#convert to 01 for a single fasta; >10% gaps = 0
+def create_01_sequences_gaps_single(file):
+    sequences = AlignIO.read(file, 'fasta')
+    p_sequences = [sequence.seq for sequence in sequences]
+    p_new_sequences = modify_sequences(p_sequences)
+    consensus_sequence = get_consensus_sequence_new(p_new_sequences)
+    p_sequences_01 = [convert_01(p_new_sequence, consensus_sequence) for p_new_sequence in p_new_sequences]
+    return p_sequences_01
 
 
 def create_01_sequences_gaps(file1, file2):
@@ -540,6 +565,7 @@ def create_report(df):
         df3=list(set(df1+df2))
         print('# unique residues of ', protein, ' = ', len(df3))
 
+
 def perform_mic_2p(p1_sequences, p2_sequences, p1, p2, cutoff=0.5):
     mic_scores = []
     p1_sequences_t = transpose(array([list(z) for z in p1_sequences])).tolist()
@@ -560,6 +586,26 @@ def perform_mic_2p(p1_sequences, p2_sequences, p1, p2, cutoff=0.5):
 
     write_mics_to_csv(mics=mic_scores, p1=p1, p2=p2, cutoff=cutoff)
     return mic_scores
+
+
+def perform_mic_1p(p_sequences, p, cutoff=0.5, out_folder=''):
+    p_sequences_t = transpose(array([list(z) for z in p_sequences])).tolist()
+    mic_scores = []
+    for counter1 in range(0, len(p_sequences_t) - 1):
+        for counter2 in range(counter1 + 1, len(p_sequences_t)):
+            mine = MINE(alpha=0.6, c=15)
+            mine.compute_score(p_sequences_t[counter1], p_sequences_t[counter2])
+            if (mine.mic() > float(cutoff)):
+                mic_score = {}
+                mic_score['x'] = p+'_'+str(counter1+1)
+                mic_score['y'] = p+'_'+str(counter2+1)
+                mic_score['p1'] = p
+                mic_score['p2'] = p
+                mic_score['weight'] = format(mine.mic(), '.3f')
+                mic_scores.append(mic_score)
+    write_mics_to_csv(mics=mic_scores, p1=p, p2=p, cutoff=cutoff, out_folder=out_folder)
+    return mic_scores
+
 
 def generate_output_filename(output_dir, basename):
     suffix = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -722,3 +768,17 @@ def read_datasets_csv():
         dataset['comments']=line[2]
         datasets.append(dataset)
     return datasets
+
+#currently not being used; this is retrieving top edges from top N nodes only
+def get_best_edges_from_graph(g, n):
+    highest_degree_nodes = get_highest_degree(g, n)
+
+    best_edges = []
+    for node in highest_degree_nodes:
+        best_edges_this_node = [(u, v, d['weight']) for (u, v, d) in g.edges(node, data=True) if d['weight'] >= 0.9]
+        for edge in best_edges_this_node:
+            best_edges.append(edge)
+
+    best_edges.sort(key=lambda x:x[2], reverse=True)
+
+    return best_edges[:10]
