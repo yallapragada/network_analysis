@@ -2,7 +2,7 @@
 network analysis of correlated mutations in proteins
 
 # code status
-still in a "development phase"
+in active development
 
 # functionality
 performs network analysis (based on "maximal information coefficient") of
